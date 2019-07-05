@@ -18,14 +18,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import ch.hevs.swap.R;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     // Write a message to the database
-  // FirebaseDatabase database = FirebaseDatabase.getInstance();
-  //  DatabaseReference myRef = database.getReference("message");
+   FirebaseDatabase database = FirebaseDatabase.getInstance();
+   DatabaseReference myRef = database.getReference("message");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-      //  myRef.setValue("Hello, World!");
+       myRef.setValue("Hello, World!");
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
