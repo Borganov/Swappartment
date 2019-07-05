@@ -1,6 +1,6 @@
-package ch.hevs.init.data;
+package ch.hevs.swap.data;
 
-import ch.hevs.init.data.model.LoggedInUser;
+import ch.hevs.swap.data.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

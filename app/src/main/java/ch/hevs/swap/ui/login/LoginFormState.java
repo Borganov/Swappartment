@@ -1,4 +1,4 @@
-package ch.hevs.init.ui.login;
+package ch.hevs.swap.ui.login;
 
 import android.support.annotation.Nullable;
 

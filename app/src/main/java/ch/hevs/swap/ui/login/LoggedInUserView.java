@@ -1,4 +1,4 @@
-package ch.hevs.init.ui.login;
+package ch.hevs.swap.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.

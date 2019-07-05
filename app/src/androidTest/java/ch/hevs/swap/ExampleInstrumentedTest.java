@@ -1,4 +1,4 @@
-package ch.hevs.init;
+package ch.hevs.swap;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

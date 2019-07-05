@@ -1,4 +1,4 @@
-package ch.hevs.init;
+package ch.hevs.swap;
 
 import org.junit.Test;
 
