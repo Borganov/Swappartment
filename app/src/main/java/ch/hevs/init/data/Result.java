@@ -1,4 +1,4 @@
-package com.example.init.data;
+package ch.hevs.init.data;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

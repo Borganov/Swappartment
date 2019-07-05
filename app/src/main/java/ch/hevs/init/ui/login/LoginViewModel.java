@@ -1,13 +1,13 @@
-package com.example.init.ui.login;
+package ch.hevs.init.ui.login;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Patterns;
 
-import com.example.init.data.LoginRepository;
-import com.example.init.data.Result;
-import com.example.init.data.model.LoggedInUser;
+import ch.hevs.init.data.LoginRepository;
+import ch.hevs.init.data.Result;
+import ch.hevs.init.data.model.LoggedInUser;
 import com.example.init.R;
 
 public class LoginViewModel extends ViewModel {

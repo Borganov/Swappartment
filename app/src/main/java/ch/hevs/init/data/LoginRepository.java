@@ -1,6 +1,6 @@
-package com.example.init.data;
+package ch.hevs.init.data;
 
-import com.example.init.data.model.LoggedInUser;
+import ch.hevs.init.data.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

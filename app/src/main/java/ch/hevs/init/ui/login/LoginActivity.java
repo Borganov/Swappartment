@@ -1,4 +1,4 @@
-package com.example.init.ui.login;
+package ch.hevs.init.ui.login;
 
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
@@ -19,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.init.R;
-import com.example.init.ui.login.LoginViewModel;
-import com.example.init.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 

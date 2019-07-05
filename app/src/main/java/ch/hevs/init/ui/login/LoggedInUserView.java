@@ -1,4 +1,4 @@
-package com.example.init.ui.login;
+package ch.hevs.init.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.

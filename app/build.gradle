@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.example.init"
+        applicationId "ch.hevs.init"
         minSdkVersion 27
         targetSdkVersion 28
         versionCode 1

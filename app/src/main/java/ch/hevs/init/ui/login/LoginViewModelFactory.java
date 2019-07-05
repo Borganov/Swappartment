@@ -1,11 +1,11 @@
-package com.example.init.ui.login;
+package ch.hevs.init.ui.login;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.example.init.data.LoginDataSource;
-import com.example.init.data.LoginRepository;
+import ch.hevs.init.data.LoginDataSource;
+import ch.hevs.init.data.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
