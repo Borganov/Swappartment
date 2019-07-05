@@ -18,11 +18,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.init.R;
+import ch.hevs.swap.R;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    // Write a message to the database
+  // FirebaseDatabase database = FirebaseDatabase.getInstance();
+  //  DatabaseReference myRef = database.getReference("message");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,10 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+
+
+      //  myRef.setValue("Hello, World!");
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override

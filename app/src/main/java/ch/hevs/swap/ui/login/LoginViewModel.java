@@ -8,7 +8,7 @@ import android.util.Patterns;
 import ch.hevs.swap.data.LoginRepository;
 import ch.hevs.swap.data.Result;
 import ch.hevs.swap.data.model.LoggedInUser;
-import com.example.init.R;
+import ch.hevs.swap.R;
 
 public class LoginViewModel extends ViewModel {
 
