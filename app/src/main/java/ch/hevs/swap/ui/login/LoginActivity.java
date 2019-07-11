@@ -17,11 +17,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.swipe.SwipeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,9 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final Button swipeButton = findViewById(R.id.swipe);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-
-
 
        myRef.setValue("Hello, World!");
 
@@ -119,6 +120,14 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+            }
+        });
+
+        swipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(LoginActivity.this, SwipeActivity.class);
+                LoginActivity.this.startActivity(myIntent);
             }
         });
     }
