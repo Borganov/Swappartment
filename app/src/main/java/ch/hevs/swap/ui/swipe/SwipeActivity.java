@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import ch.hevs.swap.R;
 
@@ -26,6 +27,26 @@ public class SwipeActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swipe);
+
+        final ImageView imageView = findViewById(R.id.imageView);
+
+        imageView.setOnTouchListener(new OnSwipeTouchListener(SwipeActivity.this) {
+            public void onSwipeTop() {
+                Toast.makeText(SwipeActivity.this, "top", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeRight() {
+                Toast.makeText(SwipeActivity.this, "right", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeLeft() {
+                Toast.makeText(SwipeActivity.this, "left", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeBottom() {
+                Toast.makeText(SwipeActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+
     }
 
 }
