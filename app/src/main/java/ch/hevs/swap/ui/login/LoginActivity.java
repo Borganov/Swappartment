@@ -9,6 +9,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,8 +19,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
 
 import ch.hevs.swap.R;
 
@@ -28,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     // Write a message to the database
    FirebaseDatabase database = FirebaseDatabase.getInstance();
-   DatabaseReference myRef = database.getReference("message");
+   DatabaseReference myRef = database.getReference("location");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-       myRef.setValue("Hello, World!");
+    //   myRef.setValue("Hello, World!");
+// Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+               loginButton.setText(value);
+              //  Log.d(1, "Value is: " + value);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+              //  Log.w(Tag, "Failed to read value.", error.toException());
+            }
+        });
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
