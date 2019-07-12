@@ -23,6 +23,7 @@ import ch.hevs.swap.ui.homepage.HomePage;
 public class LoginEditProfil extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase mDB;
     private DatabaseReference mDatabase;
 
     private EditText mEmailField;

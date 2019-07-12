@@ -44,7 +44,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         findViewById(R.id.HomePage_Login).setOnClickListener(this);
         findViewById(R.id.HomePage_CreateLogin).setOnClickListener(this);
         findViewById(R.id.HomePage_ForgetPassword).setOnClickListener(this);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+   //     mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
     }
     public void onClick(View v) {
