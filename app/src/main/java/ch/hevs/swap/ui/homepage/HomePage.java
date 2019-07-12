@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.data.models.User;
 import ch.hevs.swap.ui.login.LoginForgetPassword;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
@@ -123,6 +124,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                     }
                 });
         // [END create_user_with_email]
+    }
+    private void writeNewUser(String userId, String name, String email) {
+        User user = new User(email);
+
+        mDatabase.child("users").child(userId).setValue(user);
     }
 
     private void updateUI(FirebaseUser user) {
