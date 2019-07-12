@@ -17,17 +17,26 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_home_page"
             android:theme="@style/FullscreenTheme">
+        </activity>
+        <activity
+            android:name=".ui.newAppart.NewAppartActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_home_page"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+
+        <activity
+            android:name=".ui.search.Buyer_Appart"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_home_page"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.newAppart.NewAppartActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_home_page"
-            android:theme="@style/FullscreenTheme"></activity>
+
     </application>
 
 </manifest>
