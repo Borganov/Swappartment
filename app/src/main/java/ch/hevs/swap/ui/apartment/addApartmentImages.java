@@ -88,7 +88,7 @@ public class addApartmentImages extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Toast.makeText(addApartmentImages.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                    System.out.println("URL IS: "+ref.getDownloadUrl().toString());
+                    System.out.println("Hello      :"+taskSnapshot.getUploadSessionUri());
                 }
             })
             .addOnFailureListener(new OnFailureListener() {

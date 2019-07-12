@@ -13,14 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.apartment.SellerApartmentDetails"></activity>
-        <activity android:name=".ui.apartment.addApartmentImages"/>
-        <activity android:name=".ui.apartment.addApartmentDetails">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".ui.apartment.SellerApartmentDetails">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".ui.apartment.addApartmentImages">
+
+        </activity>
+        <activity android:name=".ui.apartment.addApartmentDetails">
+
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"

@@ -3,6 +3,8 @@ package ch.hevs.swap.ui.apartment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -50,11 +52,11 @@ public class SellerApartmentDetails extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-        String url = "https://firebasestorage.googleapis.com/v0/b/swap-appartements.appspot.com/o/apartment%2Fimages%2F1%2Fc901f9e9-3167-4b62-a47f-2d36a404c013?alt=media&token=a33c560f-512b-4e33-82fe-5498a9f2dc9c";
-        System.out.println("--------------------"+url);
+        //String url = "https://firebasestorage.googleapis.com/v0/b/swap-appartements.appspot.com/o/apartment%2Fimages%2F1%2Fc901f9e9-3167-4b62-a47f-2d36a404c013?alt=media&token=a33c560f-512b-4e33-82fe-5498a9f2dc9c";
+        //System.out.println("--------------------"+url);
        // String url = "https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2018/11/meilleure-banque-image.jpg";
 
-        Picasso.with(this).load(url).into(imageView);
+        //Picasso.with(this).load(url).into(imageView);
 
 
         btnGetImage.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +70,23 @@ public class SellerApartmentDetails extends AppCompatActivity {
     private void getImageById() {
 
 
-        System.out.println(storageReference.child("apartment/images/1/").getDownloadUrl());
+        storageReference.child("apartment/images/1/c901f9e9-3167-4b62-a47f-2d36a404c013").getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Use the bytes to display the image
+
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(),
+                        imageView.getHeight(), false));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                System.out.println(exception.getMessage());
+            }
+        });
 
 
 
