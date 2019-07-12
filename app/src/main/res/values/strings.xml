@@ -20,4 +20,7 @@
     <string name="action_send_mail_success">On t\'a envoyé un mail !</string>
     <string name="action_send_mail_failed">Oups ça ne marche pas .. Réessaie plus tard :)</string>
     <string name="action_send_mail_unknown_address">Oups tu n\'as pas de compte lié à cette adresse ...</string>
+    <string name="LoginEP_Name">Nom</string>
+    <string name="LoginEP_FirstName">Prénom</string>
+    <string name="LoginEP_AccountCreated">Compte créé</string>
 </resources>

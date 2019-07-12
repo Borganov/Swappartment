@@ -17,9 +17,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.data.models.User;
+import ch.hevs.swap.ui.login.LoginEditProfil;
 import ch.hevs.swap.ui.login.LoginForgetPassword;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
@@ -28,6 +31,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     private EditText mPasswordField;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -41,13 +46,19 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         findViewById(R.id.HomePage_Login).setOnClickListener(this);
         findViewById(R.id.HomePage_CreateLogin).setOnClickListener(this);
         findViewById(R.id.HomePage_ForgetPassword).setOnClickListener(this);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
     }
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.HomePage_CreateLogin) {
-            createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+            Intent intent = new Intent(HomePage.this, LoginEditProfil.class);
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_NO_ANIMATION |
+                            Intent.FLAG_ACTIVITY_NO_HISTORY
+            );
+            startActivity(intent);
+
         }else if (i == R.id.HomePage_ForgetPassword)
         {
             Intent intent = new Intent(HomePage.this, LoginForgetPassword.class);
@@ -97,7 +108,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 });
         // [END sign_in_with_email]
     }
-    private void createAccount(String email, String password) {
+ /*   private void createAccount(String email, String password) {
 
         if (!validateForm()) {
             return;
@@ -115,6 +126,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            writeNewUser(user.getUid(),user.getEmail());
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(HomePage.this, "Authentication failed.",
@@ -125,12 +137,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 });
         // [END create_user_with_email]
     }
-    private void writeNewUser(String userId, String name, String email) {
+    private void writeNewUser(String userId, String email) {
         User user = new User(email);
-
         mDatabase.child("users").child(userId).setValue(user);
     }
-
+*/
     private void updateUI(FirebaseUser user) {
 
         if (user != null) {

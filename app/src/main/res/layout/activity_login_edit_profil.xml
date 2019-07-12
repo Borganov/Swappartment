@@ -6,4 +6,85 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginEditProfil">
 
+    <Button
+        android:id="@+id/LoginEP_CreateLogin"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/HomePage_Create_Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/LoginEP_Email"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="mail"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/LoginEP_Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/LoginEP_Password"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="pass"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/LoginEP_Phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/LoginEP_Phone"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@android:string/emptyPhoneNumber"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/LoginEP_CreateLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/LoginEP_Name"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/LoginEP_Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/LoginEP_FirstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/LoginEP_FirstName"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="@string/LoginEP_FirstName"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/LoginEP_Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
