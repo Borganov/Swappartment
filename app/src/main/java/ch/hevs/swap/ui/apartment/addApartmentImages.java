@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.data.models.AppartController;
 
 public class addApartmentImages extends AppCompatActivity {
 
@@ -35,6 +36,9 @@ public class addApartmentImages extends AppCompatActivity {
     private ImageView imageView;
 
     private Uri filepath;
+    private String apartmentKey;
+
+    private AppartController appartController;
 
     private final int PICK_IMAGE_REQUEST = 71;
 
@@ -57,6 +61,13 @@ public class addApartmentImages extends AppCompatActivity {
         btnUpload = (Button)findViewById(R.id.btnUpload);
         imageView= (ImageView)findViewById(R.id.imageView);
 
+        appartController = new AppartController();
+
+        //get paramas
+        Bundle b = getIntent().getExtras();
+        apartmentKey = b.getString("key");
+
+
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,18 +88,20 @@ public class addApartmentImages extends AppCompatActivity {
 
     private void uploadImage() {
 
+        String uidNew = UUID.randomUUID().toString();
+
         if(filepath != null){
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("apartment/images/1/" + UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child("apartment/images/" + apartmentKey+"/" + uidNew);
             ref.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Toast.makeText(addApartmentImages.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                    System.out.println("Hello      :"+taskSnapshot.getUploadSessionUri());
+                    appartController.addImageLinkToAppart(apartmentKey, uidNew);
                 }
             })
             .addOnFailureListener(new OnFailureListener() {

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.data.models.AppartController;
 
 public class addApartmentDetails extends AppCompatActivity {
 
@@ -18,11 +19,14 @@ public class addApartmentDetails extends AppCompatActivity {
     private EditText address;
     private Button addButton;
 
+    private AppartController appartController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_apartment_details);
        initializeForm();
+       appartController = new AppartController();
     }
 
     private void initializeForm() {
@@ -33,21 +37,24 @@ public class addApartmentDetails extends AppCompatActivity {
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(View -> saveChanges(
                 designation.getText().toString(),
-                nbRooms.getText().toString(),
-                price.getText().toString(),
+                Integer.parseInt(nbRooms.getText().toString()),
+                Integer.parseInt(price.getText().toString()),
                 address.getText().toString()
         ));
     }
 
-    private void saveChanges(String designation, String nbRooms, String price, String address){
+    private void saveChanges(String designation, int nbRooms, int price, String address){
 
         System.out.println(designation);
         System.out.println(nbRooms);
         System.out.println(price);
         System.out.println(address);
 
+        String key = appartController.insertNewAppart(designation, nbRooms, price, address);
+
         // changement d'activité
         Intent intent = new Intent(this, addApartmentImages.class);
+        intent.putExtra("key", key );
         startActivity(intent);
 
     }
