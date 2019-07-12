@@ -25,6 +25,10 @@ public class LocalityEntity implements Locality {
     @ColumnInfo(name="nrLocality")
     private Integer nrLocality;
 
+    public String getNameLocality() {
+        return nameLocality;
+    }
+    
     public Long getIdLocality() {
         return idLocality;
     }
