@@ -101,7 +101,7 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
         // [END create_user_with_email]
     }
     private void writeNewUser(String userId, String email, String phone,String name,String firstname) {
-        User user = new User(email,phone,name,firstname);
+        User user = new User(name,firstname,email,phone);
         mDatabase.child("users").child(userId).setValue(user);
     }
 

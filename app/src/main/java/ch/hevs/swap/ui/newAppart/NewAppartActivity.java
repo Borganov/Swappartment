@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,6 +22,7 @@ public class NewAppartActivity extends AppCompatActivity {
 
     // [START declare_database_ref]
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
     // [END declare_database_ref]
 
 
@@ -38,6 +40,7 @@ public class NewAppartActivity extends AppCompatActivity {
 
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
         // [END initialize_database_ref]
 
         mDesignation = findViewById(R.id.designation);
@@ -79,7 +82,7 @@ public class NewAppartActivity extends AppCompatActivity {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
 
-        Appart appart = new Appart(designation, nbRooms, price, address);
+        Appart appart = new Appart(designation, nbRooms, price, address, mAuth.getCurrentUser().getUid());
         String key = mDatabase.child("appart").push().getKey();
         mDatabase.child("/appart/" + key).setValue(appart);
 

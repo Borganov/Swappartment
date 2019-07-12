@@ -12,6 +12,7 @@ public class Appart {
     public int addressNo;
     public String localityId;
     public String comment;
+    public String userId;
 
     public Appart() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -27,11 +28,12 @@ public class Appart {
         this.comment = comment;
     }
 
-    public Appart(String type, int nbRooms, int price, String adressStreet) {
+    public Appart(String type, int nbRooms, int price, String adressStreet, String userId) {
         this.type = type;
         this.nbRooms = nbRooms;
         this.price = price;
         this.addressStreet = adressStreet;
+        this.userId = userId;
     }
 
 }
