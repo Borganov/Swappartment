@@ -26,4 +26,5 @@ public class Appart {
         this.localityId = localityId;
         this.comment = comment;
     }
+
 }

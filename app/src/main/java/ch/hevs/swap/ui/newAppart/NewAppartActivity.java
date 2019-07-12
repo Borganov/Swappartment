@@ -1,4 +1,4 @@
-package ch.hevs.swap.data;
+package ch.hevs.swap.ui.newAppart;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -103,11 +103,11 @@ public class NewAppartActivity extends AppCompatActivity {
     private void insertNewAppart(String designation, int nbRooms, double price, String address) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
-        Appart appart = new Appart(designation, nbRooms, price, address);
+        //Appart appart = new Appart(designation, nbRooms, price, address);
         //mDatabase.child("appart").push();
         String key = mDatabase.child("appart").push().getKey();
 
-        mDatabase.child("/appart/" + key).setValue(appart);
+        //mDatabase.child("/appart/" + key).setValue(appart);
 
         //String key = mDatabase.child("appart").push().getKey();
         //Map<String, Object> postValues = appart.toMap();
