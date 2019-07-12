@@ -6,10 +6,10 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class Appart {
 
     public String type;
-    public Integer nbRooms;
-    public Integer price;
+    public int nbRooms;
+    public int price;
     public String addressStreet;
-    public Integer addressNo;
+    public int addressNo;
     public String localityId;
     public String comment;
 
@@ -25,6 +25,13 @@ public class Appart {
         this.addressNo = addressNo;
         this.localityId = localityId;
         this.comment = comment;
+    }
+
+    public Appart(String type, int nbRooms, int price, String adressStreet) {
+        this.type = type;
+        this.nbRooms = nbRooms;
+        this.price = price;
+        this.addressStreet = adressStreet;
     }
 
 }
