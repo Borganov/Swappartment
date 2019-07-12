@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class Buyer_Appart extends AppCompatActivity {
     private EditText mSearchField;
 
     private Button mBtnLaunchSearch;
-
+    List<Appart> apparts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class Buyer_Appart extends AppCompatActivity {
 
         mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);
+        apparts = new ArrayList<>();
 
         mBtnLaunchSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +49,8 @@ public class Buyer_Appart extends AppCompatActivity {
                 search();
             }
         });
+
+
     }
 
     public void search() {
@@ -53,65 +58,39 @@ public class Buyer_Appart extends AppCompatActivity {
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.root);
         ConstraintSet set = new ConstraintSet();
 
-        String[] results = {
-                "home1",
-                "home2",
-                "home3"
-        };
+        String[] results = new String[10];
+         ListAppart();
+     //   mBtnLaunchSearch.setText(apparts.get(1).addressStreet);
 
-        for(int i = 0; i<results.length; i++)
-        {
-            TextView view = new TextView(this);
-            view.setId(View.generateViewId());
-            view.setText(results[i]);
-            layout.addView(view, i);
-            set.clone(layout);
-            set.connect(view.getId(), ConstraintSet.TOP, layout.getId(), ConstraintSet.TOP, 60+(i*70));
-            set.applyTo(layout);
-        }
+
 
     }
 
     private void ListAppart() {
         FirebaseDatabase mDatabase;
-        DatabaseReference mDataBaseRef;
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance();
-        mDataBaseRef = mDatabase.getReference().child("appart");
-         List<Appart> apparts = new ArrayList<>();
+       //mDataBaseRef = mDatabase.getReference().child("swap-appartements").child("appart");
 
-        mDataBaseRef.addChildEventListener(new ChildEventListener(){
+
+        Query query = mDataBaseRef.child("appart");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // Put a new user in the list
-                // Cast the dataSnapshot data to the User class
-                Appart appart = dataSnapshot.getValue(Appart.class);
-                apparts.add(appart);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        apparts.add(new Appart((String)issue.child("type").getValue(), (long)issue.child("nbRooms").getValue(),(long)issue.child("price").getValue(),(String)issue.child("addressStreet").getValue(),(String)issue.child("userId").getValue()));
 
+                        //String type, int nbRooms, int price, String adressStreet, String userId
+                    }
+                }
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-
-
         });
-
-        apparts.get(3);
     }
 }
