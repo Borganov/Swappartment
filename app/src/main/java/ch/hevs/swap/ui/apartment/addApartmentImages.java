@@ -16,10 +16,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -30,7 +28,7 @@ import java.util.UUID;
 
 import ch.hevs.swap.R;
 
-public class addApartment extends AppCompatActivity {
+public class addApartmentImages extends AppCompatActivity {
 
     //VARIABLES
     private Button btnChoose, btnUpload;
@@ -48,7 +46,7 @@ public class addApartment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_apartment);
+        setContentView(R.layout.activity_add_apartment_images);
 
         //Firebase init
         storage = FirebaseStorage.getInstance();
@@ -89,14 +87,14 @@ public class addApartment extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
-                    Toast.makeText(addApartment.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addApartmentImages.this, "Uploaded", Toast.LENGTH_SHORT).show();
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(addApartment.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addApartmentImages.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             })
             .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
