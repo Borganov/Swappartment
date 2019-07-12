@@ -82,12 +82,13 @@ public class addApartmentImages extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("apartment/images/" + UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child("apartment/images/1/" + UUID.randomUUID().toString());
             ref.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Toast.makeText(addApartmentImages.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                    System.out.println("URL IS: "+ref.getDownloadUrl().toString());
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
