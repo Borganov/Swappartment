@@ -30,6 +30,9 @@ public class SwipeActivity extends AppCompatActivity{
     private static final int SWIPE_MIN_DISTANCE = 10;
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+    // index of image array, reset when swiped
+    private int index = 0;
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
     @Override
@@ -40,8 +43,29 @@ public class SwipeActivity extends AppCompatActivity{
         final ImageView imageView = findViewById(R.id.imageView);
 
 
+        final int[] imageRes1 = {
+                R.drawable.home1,
+                R.drawable.home2
+        };
+
+        final int[] imageRes2 = {
+                R.drawable.appart1,
+                R.drawable.appart2
+        };
+
+
         imageView.setOnTouchListener(new OnSwipeTouchListener(SwipeActivity.this) {
 
+            public void onTap() {
+
+                if(index+1 == imageRes1.length)
+                    index = 0;
+                else
+                    index++;
+
+                imageView.setImageResource(imageRes1[index]);
+
+            }
             public void onSwipeTop() {
                 Toast.makeText(SwipeActivity.this, "top", Toast.LENGTH_SHORT).show();
             }
