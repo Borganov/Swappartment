@@ -24,7 +24,7 @@
     <Button
         android:id="@+id/HomePage_Login"
         android:layout_width="300dp"
-        android:layout_height="55dp"
+        android:layout_height="49dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -80,10 +80,12 @@
         android:layout_width="179dp"
         android:layout_height="23dp"
 
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/HomePage_ForgetPassword"
         android:textAlignment="center"
         android:textColor="#0015A2"
         app:layout_constraintBottom_toTopOf="@+id/HomePage_Login"
-        tools:layout_editor_absoluteX="114dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -16,4 +16,8 @@
     <string name="HomePage_Login">Connectes-toi !</string>
     <string name="HomePage_Create_Login">Crées toi un compte !</string>
     <string name="HomePage_ForgetPassword">Mot de passe oublié ...</string>
+    <string name="LoginFP_SendMail">Envoie moi un mail !</string>
+    <string name="action_send_mail_success">On t\'a envoyé un mail !</string>
+    <string name="action_send_mail_failed">Oups ça ne marche pas .. Réessaie plus tard :)</string>
+    <string name="action_send_mail_unknown_address">Oups tu n\'as pas de compte lié à cette adresse ...</string>
 </resources>
