@@ -10,6 +10,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
+
     <string name="title_activity_home_page">HomePage</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -23,4 +24,14 @@
     <string name="LoginEP_Name">Nom</string>
     <string name="LoginEP_FirstName">Prénom</string>
     <string name="LoginEP_AccountCreated">Compte créé</string>
+
+    <string name="addapartment">"Ajouter un appartement"</string>
+    <string name="designation">"Désignation"</string>
+    <string name="nbRooms">"Nombre de pièces"</string>
+    <string name="price">"Prix"</string>
+    <string name="address">"Adresse"</string>
+    <string name="add">"Ajouter"</string>
+
+
+
 </resources>
