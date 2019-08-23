@@ -18,6 +18,8 @@ public class addApartmentDetails extends AppCompatActivity {
     private EditText price;
     private EditText address;
     private Button addButton;
+    private Button cancelButton;
+    public EditText locality;
 
     private AppartController appartController;
 
@@ -34,21 +36,27 @@ public class addApartmentDetails extends AppCompatActivity {
         nbRooms = findViewById(R.id.nbRoomsField);
         price = findViewById(R.id.priceField);
         address = findViewById(R.id.addressField);
+        locality = findViewById(R.id.localityField);
         addButton = findViewById(R.id.addButton);
+        cancelButton = findViewById(R.id.cancelButton);
+        // créer méthode cancelButton
         addButton.setOnClickListener(View -> saveChanges(
                 designation.getText().toString(),
                 Integer.parseInt(nbRooms.getText().toString()),
                 Integer.parseInt(price.getText().toString()),
-                address.getText().toString()
+                address.getText().toString(),
+                locality.getText().toString()
         ));
     }
 
-    private void saveChanges(String designation, int nbRooms, int price, String address){
+    private void saveChanges(String designation, int nbRooms, int price, String locality, String address){
 
         System.out.println(designation);
         System.out.println(nbRooms);
         System.out.println(price);
         System.out.println(address);
+        System.out.println(locality);
+
 
         String key = appartController.insertNewAppart(designation, nbRooms, price, address);
 
