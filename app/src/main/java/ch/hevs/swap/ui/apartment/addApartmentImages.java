@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,14 +30,25 @@ import java.util.UUID;
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.AppartController;
 
+
 public class addApartmentImages extends AppCompatActivity {
+
+    private static final int SWIPE_MIN_DISTANCE = 10;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+    private int index = 0;
+    private GestureDetector gestureDetector;
+    View.OnTouchListener gestureListener;
+
 
     //VARIABLES
     private Button btnChoose, btnUpload;
-    private ImageView imageView;
+
 
     private Uri filepath;
     private String apartmentKey;
+    private ImageView imageView;
 
     private AppartController appartController;
 
@@ -59,7 +71,8 @@ public class addApartmentImages extends AppCompatActivity {
         //Init view
         btnChoose = (Button)findViewById(R.id.btnChoose);
         btnUpload = (Button)findViewById(R.id.btnUpload);
-        imageView= (ImageView)findViewById(R.id.imageView);
+        imageView= findViewById(R.id.imageView);
+
 
         appartController = new AppartController();
 
@@ -83,7 +96,55 @@ public class addApartmentImages extends AppCompatActivity {
             }
         });
 
+
+        final int[] imageRes1 = {
+                R.drawable.home1,
+                R.drawable.home2
+        };
+
+        final int[] imageRes2 = {
+                R.drawable.appart1,
+                R.drawable.appart2
+        };
+
+
+
+        imageView.setOnTouchListener(new OnSwipeTouchListener(addApartmentImages.this) {
+
+            public void onTap() {
+
+                if(index+1 == imageRes1.length)
+                    index = 0;
+                else
+                    index++;
+
+                imageView.setImageResource(imageRes1[index]);
+
+            }
+            public void onSwipeTop() {
+                Toast.makeText(addApartmentImages.this, "top", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onSwipeRight() {
+                imageView.setImageResource(R.drawable.home2);
+                Toast.makeText(addApartmentImages.this, "right", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onSwipeLeft() {
+                imageView.setImageResource(R.drawable.home1);
+                Toast.makeText(addApartmentImages.this, "left", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onSwipeBottom() {
+                Toast.makeText(addApartmentImages.this, "bottom", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+
+
     }
+
 
 
     private void uploadImage() {
@@ -118,6 +179,7 @@ public class addApartmentImages extends AppCompatActivity {
                     progressDialog.setMessage("Uploaded "+(int)progress+"%");
                 }
             });
+
         }
 
 
