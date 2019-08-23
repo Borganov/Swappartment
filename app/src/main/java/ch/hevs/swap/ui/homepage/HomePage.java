@@ -22,6 +22,7 @@ import ch.hevs.swap.R;
 import ch.hevs.swap.ui.login.LoginEditProfil;
 import ch.hevs.swap.ui.login.LoginForgetPassword;
 import ch.hevs.swap.ui.newAppart.NewAppartActivity;
+import ch.hevs.swap.ui.search.Buyer_Appart;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
 
@@ -71,7 +72,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         } else if (i == R.id.HomePage_Login)
         {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-            Intent intent = new Intent(HomePage.this, NewAppartActivity.class);
+            Intent intent = new Intent(HomePage.this, Buyer_Appart.class);
             intent.setFlags(
                     Intent.FLAG_ACTIVITY_NO_ANIMATION |
                             Intent.FLAG_ACTIVITY_NO_HISTORY

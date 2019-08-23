@@ -6,15 +6,15 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class Appart {
 
     public String type;
-    public int nbRooms;
-    public int price;
+    public long nbRooms;
+    public long price;
     public String addressStreet;
-    public int addressNo;
+    public long addressNo;
     public String localityId;
     public String comment;
     public String userId;
 
-    public Appart() {
+    public Appart(String type, long nbRooms, long price, String addressStreet, String userId) {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
