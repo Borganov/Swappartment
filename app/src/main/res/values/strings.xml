@@ -31,6 +31,8 @@
     <string name="price">"Prix"</string>
     <string name="address">"Adresse"</string>
     <string name="add">"Ajouter"</string>
+    <string name="locality">"Localité"</string>
+    <string name="cancel">"Annuler"</string>
 
 
 
