@@ -2,12 +2,15 @@ package ch.hevs.swap.ui.search;
 
 
 
+
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -113,11 +116,13 @@ public class Buyer_Appart extends AppCompatActivity {
     }
 
     private void ListCountries() {
-        FirebaseDatabase mDatabase;
-        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance();
 
-        Query query = mDataBaseRef.child("Localities");
+    FirebaseDatabase mDatabase;
+    DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
+    mDatabase = FirebaseDatabase.getInstance();
+
+    Query query = mDataBaseRef.child("Localities");
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

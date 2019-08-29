@@ -28,7 +28,7 @@ public class Appart {
         this.comment = comment;
     }
 
-    public Appart(String type, int nbRooms, int price, String adressStreet, String userId) {
+    public Appart(String type, long nbRooms, long price, String adressStreet, String userId) {
         this.type = type;
         this.nbRooms = nbRooms;
         this.price = price;
