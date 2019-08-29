@@ -32,6 +32,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -39,14 +40,26 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         // Fields
         mEmailField = findViewById(R.id.HomePage_Email);
         mPasswordField = findViewById(R.id.HomePage_Password);
-
         // Buttons
-
         findViewById(R.id.HomePage_Login).setOnClickListener(this);
         findViewById(R.id.HomePage_CreateLogin).setOnClickListener(this);
         findViewById(R.id.HomePage_ForgetPassword).setOnClickListener(this);
    //     mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        updateUI(user);
+
+        if(!user.getEmail().isEmpty())
+        {
+            Intent intent = new Intent(HomePage.this, Buyer_Appart.class);
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_NO_ANIMATION |
+                            Intent.FLAG_ACTIVITY_NO_HISTORY
+            );
+
+            startActivity(intent);
+        }
     }
     public void onClick(View v) {
         int i = v.getId();
@@ -87,9 +100,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         if (!validateForm()) {
             return;
         }
-
-
-
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -118,7 +128,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     private void updateUI(FirebaseUser user) {
 
         if (user != null) {
-            Toast.makeText(HomePage.this, user.getEmail(),
+
+
+            Toast.makeText(HomePage.this, getResources().getString(R.string.connected) + user.getEmail(),
                     Toast.LENGTH_SHORT).show();
 
         }
