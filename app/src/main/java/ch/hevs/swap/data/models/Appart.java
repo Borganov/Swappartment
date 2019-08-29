@@ -14,7 +14,7 @@ public class Appart {
     public String comment;
     public String userId;
 
-    public Appart(String type, long nbRooms, long price, String addressStreet, String userId) {
+    public Appart() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
