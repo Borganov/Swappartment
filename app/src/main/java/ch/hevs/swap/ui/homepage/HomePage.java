@@ -114,40 +114,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 });
         // [END sign_in_with_email]
     }
- /*   private void createAccount(String email, String password) {
 
-        if (!validateForm()) {
-            return;
-        }
-
-       // showProgressDialog();
-
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                            writeNewUser(user.getUid(),user.getEmail());
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(HomePage.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-                    }
-                });
-        // [END create_user_with_email]
-    }
-    private void writeNewUser(String userId, String email) {
-        User user = new User(email);
-        mDatabase.child("users").child(userId).setValue(user);
-    }
-*/
     private void updateUI(FirebaseUser user) {
 
         if (user != null) {

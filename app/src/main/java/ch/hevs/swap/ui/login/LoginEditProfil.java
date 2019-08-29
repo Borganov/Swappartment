@@ -53,6 +53,7 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
+        FirebaseUser user = mAuth.getCurrentUser();
     }
 
 
@@ -93,7 +94,7 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginEditProfil.this, "Authentication failed.",
+                            Toast.makeText(LoginEditProfil.this, R.string.invalid_password,
                                     Toast.LENGTH_SHORT).show();
 
                         }
@@ -119,7 +120,7 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
         }
 
         String password = mPasswordField.getText().toString();
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password) || password.length() < 6) {
             mPasswordField.setError("Required.");
             valid = false;
         } else {
