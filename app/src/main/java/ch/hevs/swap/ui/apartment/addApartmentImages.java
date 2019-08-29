@@ -19,12 +19,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import ch.hevs.swap.R;
@@ -49,6 +56,7 @@ public class addApartmentImages extends AppCompatActivity {
     private Uri filepath;
     private String apartmentKey;
     private ImageView imageView;
+    private ArrayList<String> appartPics;
 
     private AppartController appartController;
 
@@ -74,11 +82,13 @@ public class addApartmentImages extends AppCompatActivity {
         imageView= findViewById(R.id.imageView);
 
 
+        appartPics = new ArrayList<String>();
         appartController = new AppartController();
 
         //get paramas
         Bundle b = getIntent().getExtras();
-        apartmentKey = b.getString("key");
+        //apartmentKey = b.getString("key");
+        apartmentKey = "LnTOYgmXjn4OBSxuGnU";
 
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +105,55 @@ public class addApartmentImages extends AppCompatActivity {
                 uploadImage();
             }
         });
+
+
+        /* ############################################ */
+        /* ############################################ */
+        FirebaseDatabase mDatabase;
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference("appart/-LnTOYgmXjn4OBSxuGnU");
+        mDatabase = FirebaseDatabase.getInstance();
+
+
+
+        Query query = mDataBaseRef.child("imgs");
+
+        System.out.println("APPARTMENT PICTURE ID : ===============================================");
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("on est dedans");
+                    String url;
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        url = (String) issue.getValue();
+                        /*url = (String) issue.child("nameLocality").getValue() + " (" + (String) issue.child("npa").getValue() + ")";*/
+                        System.out.print("id:");
+                        System.out.println(url);
+                        appartPics.add(url);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        /* ############################################ */
+        /* ############################################ */
+
+
+
+
+
+
+
+
+
 
 
         final int[] imageRes1 = {
