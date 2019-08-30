@@ -44,7 +44,7 @@ public class SearchApart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_appart);
+        setContentView(R.layout.activity_search_apart);
         mlocality = findViewById(R.id.autoComplete_Locality);
 //        mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);
