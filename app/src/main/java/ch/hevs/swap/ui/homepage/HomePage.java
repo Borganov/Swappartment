@@ -21,6 +21,7 @@ import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.UserController;
 import ch.hevs.swap.ui.login.LoginEditProfil;
 import ch.hevs.swap.ui.login.LoginForgetPassword;
+import ch.hevs.swap.ui.search.SearchApart;
 
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
@@ -52,7 +53,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         if(user != null)
         {
 
-            Intent intent = new Intent(HomePage.this, HomepageBuyer.class);
+            Intent intent = new Intent(HomePage.this, SearchApart.class);
 
             intent.setFlags(
                     Intent.FLAG_ACTIVITY_NO_ANIMATION |
@@ -89,7 +90,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
             user = mAuth.getCurrentUser();
             if(user != null ) {
-                Intent intent = new Intent(HomePage.this, HomepageBuyer.class);
+                Intent intent = new Intent(HomePage.this, SearchApart.class);
                 intent.setFlags(
                         Intent.FLAG_ACTIVITY_NO_ANIMATION |
                                 Intent.FLAG_ACTIVITY_NO_HISTORY

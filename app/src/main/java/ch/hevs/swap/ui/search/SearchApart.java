@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.homepage.BaseActivity;
 
 public class SearchApart extends AppCompatActivity {
 
