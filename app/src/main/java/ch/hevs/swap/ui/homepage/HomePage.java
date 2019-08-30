@@ -31,6 +31,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    FirebaseUser user;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +48,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
    //     mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
         updateUI(user);
 
-        if(!user.getEmail().isEmpty())
+        if(user != null)
         {
             Intent intent = new Intent(HomePage.this, Buyer_Appart.class);
             intent.setFlags(
@@ -85,13 +86,17 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         } else if (i == R.id.HomePage_Login)
         {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-            Intent intent = new Intent(HomePage.this, Buyer_Appart.class);
-            intent.setFlags(
-                    Intent.FLAG_ACTIVITY_NO_ANIMATION |
-                            Intent.FLAG_ACTIVITY_NO_HISTORY
-            );
+            user = mAuth.getCurrentUser();
+            if(user != null ) {
+                Intent intent = new Intent(HomePage.this, Buyer_Appart.class);
+                intent.setFlags(
+                        Intent.FLAG_ACTIVITY_NO_ANIMATION |
+                                Intent.FLAG_ACTIVITY_NO_HISTORY
+                );
+                startActivity(intent);
+            }
 
-            startActivity(intent);
+
         }
     }
 
@@ -108,10 +113,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
+                            Toast.makeText(HomePage.this,"Try Again",
+                                    Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
 
