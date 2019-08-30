@@ -32,7 +32,7 @@
     <string name="add">"Ajouter"</string>
     <string name="locality">"Localité"</string>
     <string name="cancel">"Annuler"</string>
-    <string name="connected">Connecté en tant que </string>
+    <string name="connected">Connecte en tant que </string>
 
 
 </resources>

@@ -146,16 +146,6 @@ public class addApartmentImages extends AppCompatActivity {
         /* ############################################ */
         /* ############################################ */
 
-
-
-
-
-
-
-
-
-
-
         final int[] imageRes1 = {
                 R.drawable.home1,
                 R.drawable.home2
