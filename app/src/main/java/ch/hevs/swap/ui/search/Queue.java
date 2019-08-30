@@ -154,6 +154,7 @@ public class Queue {
             for(int i = 0; i<appartKeys.size(); i++)
             {
                 this.file(new Knot(new Info(appartKeys.get(i))));
+                System.out.println(appartKeys.get(i));
             }
         }
 

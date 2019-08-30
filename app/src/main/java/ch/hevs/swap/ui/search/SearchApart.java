@@ -3,6 +3,7 @@ package ch.hevs.swap.ui.search;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -26,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import ch.hevs.swap.R;
@@ -59,18 +61,17 @@ public class SearchApart extends AppCompatActivity {
         textView.setDropDownVerticalOffset(2);
         textView.setAdapter(adapter);
 
-        apparts = new ArrayList<>();
+        apparts = new ArrayList<String>();
 
 
         mBtnLaunchSearch.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 locality = mlocality.getText().toString();
                 if(!locality.isEmpty()){
                     idLocality = new Long(localities.indexOf(locality));
                     search(idLocality);
-
+                    System.out.println("size &%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + apparts.size());
                 }
                 else{
                     Toast.makeText(SearchApart.this,"Veuillez introduire une localité", Toast.LENGTH_LONG).show();
@@ -107,24 +108,31 @@ public class SearchApart extends AppCompatActivity {
 
         Query query = mDataBaseRef.child("appart").orderByChild("idLocality").equalTo(idLocality);
 
-            Toast.makeText(SearchApart.this,"Recherche en cours pour " + locality, Toast.LENGTH_LONG).show();
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+        Toast.makeText(SearchApart.this,"Recherche en cours pour " + idLocality, Toast.LENGTH_LONG).show();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String idApartment;
+                    int i = 0;
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot apart : dataSnapshot.getChildren()) {
                         idApartment = apart.getKey();
                         apparts.add(idApartment);
-                        System.out.println("###############################################################################" + idApartment);
-//                        ++ idApartment;
-//                        apparts.add(new Appart((String) issue.child("type").getValue(), (long) issue.child("nbRooms").getValue(), (long) issue.child("price").getValue(), (String) issue.child("addressStreet").getValue(), (String) issue.child("userId").getValue()));
 
-                        //String type, int nbRooms, int price, String adressStreet, String userId
+                        //System.out.println("###############################################################################" + idApartment);
+                        System.out.println(apparts.get(i) + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        i++;
+
                     }
+
+                    Intent intent = new Intent(SearchApart.this, ResultAppart.class);
+                    intent.putStringArrayListExtra("key", apparts);
+                    startActivity(intent);
+
                 }
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -135,11 +143,11 @@ public class SearchApart extends AppCompatActivity {
 
     private void ListLocalities() {
 
-    FirebaseDatabase mDatabase;
-    DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
-    mDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase mDatabase;
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance();
 
-    Query query = mDataBaseRef.child("Localities");
+        Query query = mDataBaseRef.child("Localities");
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
