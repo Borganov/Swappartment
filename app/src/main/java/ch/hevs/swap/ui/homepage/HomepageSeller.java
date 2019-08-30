@@ -3,7 +3,9 @@ package ch.hevs.swap.ui.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -11,6 +13,7 @@ import android.widget.Switch;
 import java.util.ArrayList;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.apartment.addApartmentDetails;
 import ch.hevs.swap.ui.search.Buyer_Appart;
 
 
@@ -19,6 +22,7 @@ public class HomepageSeller extends BaseActivity {
 
     ListView listView;
 
+    private Button addAppartement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +90,21 @@ public class HomepageSeller extends BaseActivity {
         });
 
 
+
+            //Intialization Button
+
+        addAppartement = (Button) findViewById(R.id.addAppartementFromSeller);
+
+        addAppartement.setOnClickListener((View.OnClickListener) HomepageSeller.this);
+            //Here MainActivity.this is a Current Class Reference (context)
+        }
+
+
+        public void onClick(View addApartmentDetails) {
+
+            Intent intent = new Intent(HomepageSeller.this, addApartmentDetails.class);
+        }
+
+
     }
 
-}
