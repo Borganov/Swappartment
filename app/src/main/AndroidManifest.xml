@@ -45,13 +45,9 @@
             android:name=".ui.newAppart.NewAppartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_home_page"
-            android:theme="@style/FullscreenTheme"></activity>
-        <activity
-            android:name=".ui.search.Buyer_Appart"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_home_page"
             android:theme="@style/FullscreenTheme">
         </activity>
+
 
     </application>
 
