@@ -52,7 +52,7 @@ public class addApartmentImages extends AppCompatActivity {
 
 
     //VARIABLES
-    private Button btnCancel, btnAdd, btnDone;
+    private Button btnDelete, btnAdd, btnDone;
 
 
     private Uri filepath;
@@ -79,7 +79,7 @@ public class addApartmentImages extends AppCompatActivity {
         storageReference = storage.getReference();
 
         //Init view
-        btnCancel = (Button)findViewById(R.id.btnCancel);
+        btnDelete = (Button)findViewById(R.id.btnDelete);
         btnAdd = (Button)findViewById(R.id.btnAdd);
         btnDone = (Button)findViewById(R.id.btnDone);
         imageView= findViewById(R.id.imageView);
@@ -115,14 +115,6 @@ public class addApartmentImages extends AppCompatActivity {
                 done();
             }
         });
-
-        
-        /*btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadImage();
-            }
-        });*/
 
 
         FirebaseDatabase mDatabase;
@@ -167,9 +159,6 @@ public class addApartmentImages extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
 
@@ -209,9 +198,6 @@ public class addApartmentImages extends AppCompatActivity {
             });
 
         }
-
-
-
     }
 
     private void chooseImage() {
@@ -263,6 +249,5 @@ public class addApartmentImages extends AppCompatActivity {
         Intent intent = new Intent(this, HomepageSeller.class);
         startActivity(intent);
     }
-
 
 }

@@ -108,9 +108,7 @@ public class addApartmentDetails extends AppCompatActivity {
 
     }
 
-
-
-
+    
     private ArrayList<String> ListLocalities() {
         ArrayList<String> response = new ArrayList<String>();
 
