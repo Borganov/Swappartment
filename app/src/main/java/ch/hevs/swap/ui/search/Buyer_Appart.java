@@ -42,7 +42,7 @@ public class Buyer_Appart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buyer_appart);
+        setContentView(R.layout.activity_search_appart);
 
 //        mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);

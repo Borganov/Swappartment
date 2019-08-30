@@ -30,7 +30,7 @@ import java.util.List;
 
 import ch.hevs.swap.R;
 
-public class SearchAppart extends AppCompatActivity {
+public class SearchApart extends AppCompatActivity {
 
     private Button mBtnLaunchSearch;
 
@@ -44,7 +44,7 @@ public class SearchAppart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buyer_appart);
+        setContentView(R.layout.activity_search_appart);
         mlocality = findViewById(R.id.autoComplete_Locality);
 //        mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);
@@ -73,7 +73,7 @@ public class SearchAppart extends AppCompatActivity {
 
                 }
                 else{
-                    Toast.makeText(SearchAppart.this,"Veuillez introduire une localité", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SearchApart.this,"Veuillez introduire une localité", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -107,7 +107,7 @@ public class SearchAppart extends AppCompatActivity {
 
         Query query = mDataBaseRef.child("appart").orderByChild("idLocality").equalTo(idLocality);
 
-            Toast.makeText(SearchAppart.this,"Recherche en cours pour " + locality, Toast.LENGTH_LONG).show();
+            Toast.makeText(SearchApart.this,"Recherche en cours pour " + locality, Toast.LENGTH_LONG).show();
             query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
