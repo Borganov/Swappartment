@@ -25,6 +25,7 @@ import java.util.List;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.Appart;
+import ch.hevs.swap.data.models.UserController;
 import ch.hevs.swap.ui.apartment.OnSwipeTouchListener;
 import ch.hevs.swap.ui.apartment.addApartmentImages;
 
@@ -45,7 +46,7 @@ public class ResultAppart extends AppCompatActivity {
 
         //GET PARAMETERS
         ArrayList<String> appartKeys = getIntent().getStringArrayListExtra("key");
-
+        UserController userController = new UserController();
         appartQueue.fillQueue(appartKeys);
 
         imgAppart = findViewById(R.id.imgAppart);
@@ -75,7 +76,7 @@ public class ResultAppart extends AppCompatActivity {
             }
 
             public void onSwipeRight() {
-
+                userController.addApartViewed(appartQueue.getFirst().getInfo().getValeur(),true);
                 appartQueue.defile();
                 if(!appartQueue.isEmpty())
                 {
@@ -92,6 +93,7 @@ public class ResultAppart extends AppCompatActivity {
             }
 
             public void onSwipeLeft() {
+                userController.addApartViewed(appartQueue.getFirst().getInfo().getValeur(),false);
                 appartQueue.defile();
                 if(!appartQueue.isEmpty())
                     updateFields();

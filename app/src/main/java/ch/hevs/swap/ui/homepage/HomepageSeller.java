@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.apartment.addApartmentDetails;
-import ch.hevs.swap.ui.search.Buyer_Appart;
+import ch.hevs.swap.ui.search.SearchApart;
 
 
 public class HomepageSeller extends BaseActivity {
@@ -82,7 +82,7 @@ public class HomepageSeller extends BaseActivity {
                 } else {
                     // The toggle is disabled
                     statusSwitch1 = sw.getTextOff().toString();
-                    Intent homepageBuyer = new Intent (HomepageSeller.this, Buyer_Appart.class);
+                    Intent homepageBuyer = new Intent (HomepageSeller.this, SearchApart.class);
                     startActivity(homepageBuyer);
                     finish();
                 }
