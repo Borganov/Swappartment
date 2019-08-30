@@ -16,10 +16,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
+
 import ch.hevs.swap.R;
+import ch.hevs.swap.data.models.UserController;
 import ch.hevs.swap.ui.login.LoginEditProfil;
 import ch.hevs.swap.ui.login.LoginForgetPassword;
 import ch.hevs.swap.ui.search.Buyer_Appart;
+import ch.hevs.swap.ui.apartment.likedApartments;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,10 +51,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         user = mAuth.getCurrentUser();
         updateUI(user);
-
         if(user != null)
         {
-            Intent intent = new Intent(HomePage.this, Buyer_Appart.class);
+            Intent intent = new Intent(HomePage.this, HomepageBuyer.class);
             intent.setFlags(
                     Intent.FLAG_ACTIVITY_NO_ANIMATION |
                             Intent.FLAG_ACTIVITY_NO_HISTORY

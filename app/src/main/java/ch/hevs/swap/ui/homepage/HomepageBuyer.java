@@ -3,13 +3,16 @@ package ch.hevs.swap.ui.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.apartment.likedApartments;
 
 
-public class HomepageBuyer extends BaseActivity {
+public class HomepageBuyer extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,9 @@ public class HomepageBuyer extends BaseActivity {
         sw.setTextOn("Seller");
         sw.setTextOff("Buyer");
 
+        Button mButton = findViewById(R.id.btnFavoris);
 
+        mButton.setOnClickListener(this);
 
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -49,4 +54,9 @@ public class HomepageBuyer extends BaseActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent homepageLiked = new Intent (HomepageBuyer.this, likedApartments.class);
+        startActivity(homepageLiked);
+    }
 }
