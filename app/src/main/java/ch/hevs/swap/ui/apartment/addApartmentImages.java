@@ -51,7 +51,7 @@ public class addApartmentImages extends AppCompatActivity {
 
 
     //VARIABLES
-    private Button btnChoose, btnUpload;
+    private Button btnCancel, btnAdd, btnDone;
 
 
     private Uri filepath;
@@ -78,8 +78,9 @@ public class addApartmentImages extends AppCompatActivity {
         storageReference = storage.getReference();
 
         //Init view
-        btnChoose = (Button)findViewById(R.id.btnChoose);
-        btnUpload = (Button)findViewById(R.id.btnUpload);
+        btnCancel = (Button)findViewById(R.id.btnCancel);
+        btnAdd = (Button)findViewById(R.id.btnAdd);
+        btnDone = (Button)findViewById(R.id.btnDone);
         imageView= findViewById(R.id.imageView);
 
 
@@ -89,37 +90,37 @@ public class addApartmentImages extends AppCompatActivity {
 
         //get paramas
         Bundle b = getIntent().getExtras();
-        //apartmentKey = b.getString("key");
-        apartmentKey = "-LnTOYgmXjn4OBSxuGnU";
+        apartmentKey = b.getString("key");
 
 
-        btnChoose.setOnClickListener(new View.OnClickListener() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImage();
             }
         });
 
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                done();
+            }
+        });
+
         
-        btnUpload.setOnClickListener(new View.OnClickListener() {
+        /*btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadImage();
             }
-        });
+        });*/
 
 
-        /* ############################################ */
-        /* ############################################ */
         FirebaseDatabase mDatabase;
-        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference("appart/-LnTOYgmXjn4OBSxuGnU");
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference("appart/"+apartmentKey);
         mDatabase = FirebaseDatabase.getInstance();
 
-
-
         Query query = mDataBaseRef.child("imgs");
-
-
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -141,20 +142,6 @@ public class addApartmentImages extends AppCompatActivity {
         });
 
 
-        /* ############################################ */
-        /* ############################################ */
-
-        final int[] imageRes1 = {
-                R.drawable.home1,
-                R.drawable.home2
-        };
-
-        final int[] imageRes2 = {
-                R.drawable.appart1,
-                R.drawable.appart2
-        };
-
-
 
         imageView.setOnTouchListener(new OnSwipeTouchListener(addApartmentImages.this) {
 
@@ -167,33 +154,19 @@ public class addApartmentImages extends AppCompatActivity {
                     index++;
 
                 setImageViewById(apartmentKey,appartPics.get(index));
-                Toast.makeText(addApartmentImages.this, appartPics.get(index), Toast.LENGTH_SHORT).show();
                 //imageView.setImageResource(imageRes1[index]);
 
             }
-            /*
-            public void onSwipeTop() {
-                Toast.makeText(addApartmentImages.this, "top", Toast.LENGTH_SHORT).show();
-            }
-
-            public void onSwipeRight() {
-                imageView.setImageResource(R.drawable.home2);
-                Toast.makeText(addApartmentImages.this, "right", Toast.LENGTH_SHORT).show();
-            }
-
-            public void onSwipeLeft() {
-                imageView.setImageResource(R.drawable.home1);
-                Toast.makeText(addApartmentImages.this, "left", Toast.LENGTH_SHORT).show();
-            }
-
-            public void onSwipeBottom() {
-                Toast.makeText(addApartmentImages.this, "bottom", Toast.LENGTH_SHORT).show();
-            }*/
-
         });
 
 
 
+    }
+
+    private void done(){
+        // changement d'activité
+        Intent intent = new Intent(this, addApartmentDetails.class);
+        startActivity(intent);
     }
 
 
@@ -206,6 +179,8 @@ public class addApartmentImages extends AppCompatActivity {
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
+
+            appartPics.add(uidNew);
 
             StorageReference ref = storageReference.child("apartment/images/" + apartmentKey+"/" + uidNew);
             ref.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -242,6 +217,7 @@ public class addApartmentImages extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
     }
 
     @Override
@@ -252,6 +228,7 @@ public class addApartmentImages extends AppCompatActivity {
             try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
                 imageView.setImageBitmap(bitmap);
+                uploadImage();
             }catch (IOException e){
                 e.printStackTrace();
             }

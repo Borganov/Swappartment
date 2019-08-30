@@ -33,6 +33,8 @@
     <string name="locality">"Localité"</string>
     <string name="cancel">"Annuler"</string>
     <string name="connected">Connecté en tant que </string>
+    <string name="done">Terminer</string>
+    <string name="delete">Supprimer</string>
 
 
 </resources>
