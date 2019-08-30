@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.AppartController;
+import ch.hevs.swap.ui.homepage.HomepageSeller;
 
 public class addApartmentDetails extends AppCompatActivity {
 
@@ -32,10 +34,7 @@ public class addApartmentDetails extends AppCompatActivity {
     private Button addButton;
     private Button cancelButton;
     public EditText locality;
-
-    List<String> localities;
-
-
+    private List<String> localities;
     private AppartController appartController;
 
     @Override
@@ -57,9 +56,17 @@ public class addApartmentDetails extends AppCompatActivity {
         textView.setDropDownVerticalOffset(3);
 
         textView.setAdapter(adapter);
+        cancelButton = (Button)findViewById(R.id.cancelButton);
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel();
+            }
+        });
     }
 
+    // initialisation du formulaire
     private void initializeForm() {
         designation = findViewById(R.id.designationField);
         nbRooms = findViewById(R.id.nbRoomsField);
@@ -78,17 +85,10 @@ public class addApartmentDetails extends AppCompatActivity {
         ));
     }
 
+    //sauvegarde des entrées de l'utilisateur
     private void saveChanges(String designation, int nbRooms, int price, String address, String locality){
 
-        System.out.println("Désignation " + designation);
-        System.out.println("nbRooms " + nbRooms);
-        System.out.println("Price " + price);
-        System.out.println("Address :" + address);
-        System.out.println("localité : " + locality);
         Long localityID = new Long(localities.indexOf(locality));
-
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&& id est : "  + localityID);
-
 
         String key = appartController.insertNewAppart(designation, nbRooms, price, address, localityID);
 
@@ -99,9 +99,7 @@ public class addApartmentDetails extends AppCompatActivity {
 
     }
 
-
-
-
+    //Liste des localitées
     private ArrayList<String> ListLocalities() {
         ArrayList<String> response = new ArrayList<String>();
 
@@ -134,6 +132,10 @@ public class addApartmentDetails extends AppCompatActivity {
         return response;
     }
 
-
+    // Action du bouton cancel
+    public void cancel() {
+        Intent intent = new Intent(this, HomepageSeller.class);
+        startActivity(intent);
+    }
 
 }

@@ -52,9 +52,7 @@ public class addApartmentImages extends AppCompatActivity {
 
 
     //VARIABLES
-    private Button btnCancel, btnAdd, btnDone;
-
-
+    private Button btnDelete, btnAdd, btnDone;
     private Uri filepath;
     private String apartmentKey;
     private ImageView imageView;
@@ -79,7 +77,7 @@ public class addApartmentImages extends AppCompatActivity {
         storageReference = storage.getReference();
 
         //Init view
-        btnCancel = (Button)findViewById(R.id.btnCancel);
+        btnDelete = (Button)findViewById(R.id.btnDelete);
         btnAdd = (Button)findViewById(R.id.btnAdd);
         btnDone = (Button)findViewById(R.id.btnDone);
         imageView= findViewById(R.id.imageView);
@@ -116,15 +114,8 @@ public class addApartmentImages extends AppCompatActivity {
             }
         });
 
-        
-        /*btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadImage();
-            }
-        });*/
 
-
+        //Liste des photos pour l'appartement créé
         FirebaseDatabase mDatabase;
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference("appart/"+apartmentKey);
         mDatabase = FirebaseDatabase.getInstance();
@@ -151,7 +142,7 @@ public class addApartmentImages extends AppCompatActivity {
         });
 
 
-
+        //Navigation dans les photos de l'appartement
         imageView.setOnTouchListener(new OnSwipeTouchListener(addApartmentImages.this) {
 
             public void onTap() {
@@ -167,12 +158,10 @@ public class addApartmentImages extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
 
+    //Ajout de l'image à l'appartement
     private void uploadImage() {
 
         String uidNew = UUID.randomUUID().toString();
@@ -209,11 +198,9 @@ public class addApartmentImages extends AppCompatActivity {
             });
 
         }
-
-
-
     }
 
+    // Choix de l'image
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -238,6 +225,7 @@ public class addApartmentImages extends AppCompatActivity {
 
     }
 
+    //Affichage de l'image
     private void setImageViewById(String id_appartment,String id_image) {
 
         storageReference.child("apartment/images/"+id_appartment+"/"+id_image).getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -259,10 +247,11 @@ public class addApartmentImages extends AppCompatActivity {
         });
 
     }
+
+    //Bouton terminé
     public void done() {
         Intent intent = new Intent(this, HomepageSeller.class);
         startActivity(intent);
     }
-
 
 }
