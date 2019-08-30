@@ -1,5 +1,7 @@
 package ch.hevs.swap.ui.search;
 
+import java.util.ArrayList;
+
 public class Queue {
         private int length ;
         private Knot first ;
@@ -147,10 +149,11 @@ public class Queue {
             return chaine ;
         }
 
-        public void fillQueue(String[] appartKeys) {
-            for(int i = 0; i<appartKeys.length; i++)
+        public void fillQueue(ArrayList<String> appartKeys) {
+
+            for(int i = 0; i<appartKeys.size(); i++)
             {
-                this.file(new Knot(new Info(appartKeys[i])));
+                this.file(new Knot(new Info(appartKeys.get(i))));
             }
         }
 

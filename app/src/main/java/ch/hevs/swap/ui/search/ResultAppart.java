@@ -44,18 +44,14 @@ public class ResultAppart extends AppCompatActivity {
         setContentView(R.layout.activity_result_appart);
 
         //GET PARAMETERS
-        Bundle b = getIntent().getExtras();
-        String[] appartKeys = b.getStringArray("key");
+        ArrayList<String> appartKeys = getIntent().getStringArrayListExtra("key");
 
         appartQueue.fillQueue(appartKeys);
 
         imgAppart = findViewById(R.id.imgAppart);
         txtAppartId = findViewById(R.id.txtAppartId);
+
         updateFields();
-
-//        mSearchField = findViewById(R.id.searchField);
-
-        //txtAppartId.setText(Integer.toString(q1.getFirst().getInfo().getValeur()));
 
         final int[] imageRes1 = {
                 R.drawable.home1,
@@ -86,6 +82,7 @@ public class ResultAppart extends AppCompatActivity {
                     updateFields();
                     // ADD CODE TO SAVE HOUSE TO FAVORITES
                 }
+
 
                 else
                     txtAppartId.setText("You've swiped through all houses!");

@@ -70,10 +70,15 @@ public class Buyer_Appart extends AppCompatActivity {
 
     public void getResults() {
 
-        String[] appartKeys = {"-Lja99ibfhvlX53Bn2ff", "LjakhNvfumoc5dbK1gF", "LjakmofH8wFh_O2SqTy", "-LmxRESpC46WOL1WXGEr" };
+        ArrayList<String> apparts = new ArrayList<>();
+        apparts.add("-Lja99ibfhvlX53Bn2ff");
+        apparts.add("-LnTOYgmXjn4OBSxuGnU");
+        apparts.add("-LjakmofH8wFh_O2SqTy");
+        apparts.add("-LmxRESpC46WOL1WXGEr");
+        //String[] appartKeys = {"-Lja99ibfhvlX53Bn2ff", "-LnTOYgmXjn4OBSxuGnU", "-LjakmofH8wFh_O2SqTy", "-LmxRESpC46WOL1WXGEr" };
 
         Intent intent = new Intent(this, ResultAppart.class);
-        intent.putExtra("key", appartKeys);
+        intent.putStringArrayListExtra("key", apparts);
         startActivity(intent);
     }
 
