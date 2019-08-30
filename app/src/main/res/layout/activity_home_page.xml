@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.homepage.HomePage"
-    android:background="@color/cardview_light_background" >
+    android:background="#FFFFFF"
+    tools:context=".ui.homepage.HomePage">
 
 
-
-<TextView
+    <TextView
         android:id="@+id/homepage_title"
         android:layout_width="387dp"
         android:layout_height="340dp"
@@ -88,4 +87,12 @@
         app:layout_constraintBottom_toTopOf="@+id/HomePage_Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        tools:layout_editor_absoluteX="-146dp"
+        tools:layout_editor_absoluteY="453dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

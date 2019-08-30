@@ -52,8 +52,6 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
         // FireBase
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-
-        FirebaseUser user = mAuth.getCurrentUser();
     }
 
 
@@ -120,8 +118,8 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
         }
 
         String password = mPasswordField.getText().toString();
-        if (TextUtils.isEmpty(password) || password.length() < 6) {
-            mPasswordField.setError("Required.");
+        if (TextUtils.isEmpty(password) || password.length() < 5) {
+            mPasswordField.setError("More 5 characters");
             valid = false;
         } else {
             mPasswordField.setError(null);

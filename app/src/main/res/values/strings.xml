@@ -13,9 +13,8 @@
 
     <string name="title_activity_home_page">HomePage</string>
     <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="HomePage_Login">Connectes-toi !</string>
-    <string name="HomePage_Create_Login">Crées toi un compte !</string>
+    <string name="HomePage_Create_Login">Crée toi un compte !</string>
     <string name="HomePage_ForgetPassword">Mot de passe oublié ...</string>
     <string name="LoginFP_SendMail">Envoie moi un mail !</string>
     <string name="action_send_mail_success">On t\'a envoyé un mail !</string>
@@ -33,7 +32,7 @@
     <string name="add">"Ajouter"</string>
     <string name="locality">"Localité"</string>
     <string name="cancel">"Annuler"</string>
-
+    <string name="connected">Connecté en tant que </string>
 
 
 </resources>
