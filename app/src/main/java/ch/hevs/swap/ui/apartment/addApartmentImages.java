@@ -142,7 +142,19 @@ public class addApartmentImages extends AppCompatActivity {
         });
 
 
-        //Navigation dans les photos de l'appartement
+        /* ############################################ */
+        /* ############################################ */
+
+        final int[] imageRes1 = {
+                R.drawable.home1,
+                R.drawable.home2
+        };
+
+        final int[] imageRes2 = {
+                R.drawable.appart1,
+                R.drawable.appart2
+        };
+
         imageView.setOnTouchListener(new OnSwipeTouchListener(addApartmentImages.this) {
 
             public void onTap() {

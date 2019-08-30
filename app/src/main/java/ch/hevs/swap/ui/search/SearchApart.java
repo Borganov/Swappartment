@@ -5,14 +5,17 @@ package ch.hevs.swap.ui.search;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
@@ -24,67 +27,67 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import ch.hevs.swap.R;
-import ch.hevs.swap.data.models.Appart;
-import ch.hevs.swap.ui.homepage.BaseActivity;
-import ch.hevs.swap.ui.homepage.HomepageSeller;
 
-public class Buyer_Appart extends BaseActivity {
+public class SearchApart extends AppCompatActivity {
 
     private Button mBtnLaunchSearch;
 
-    private Switch switchBuyerSeller;
+    List<String> localities;
+    ArrayList<String> apparts;
 
-    List<String> countries;
-    List<Appart> apparts;
+    EditText mlocality;
+    String locality;
+    Long idLocality;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buyer_appart);
-
-
-        switchBuyerSeller = (Switch) findViewById(R.id.Switch);
-        switchBuyerSeller.setChecked(false);
-        switchBuyerSeller.setTextOn("Seller");
-        switchBuyerSeller.setTextOff("Buyer");
-
-
-
-
+        setContentView(R.layout.activity_search_apart);
+        mlocality = findViewById(R.id.autoComplete_Locality);
 //        mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);
-        countries = new ArrayList<>();
+        localities = new ArrayList<>();
 
-        ListCountries();
+        ListLocalities();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, countries);
+                android.R.layout.simple_dropdown_item_1line, localities);
         AutoCompleteTextView textView = (AutoCompleteTextView)
                 findViewById(R.id.autoComplete_Locality);
         textView.setDropDownVerticalOffset(2);
         textView.setAdapter(adapter);
 
+        apparts = new ArrayList<String>();
 
-        apparts = new ArrayList<>();
 
         mBtnLaunchSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                search();
+                locality = mlocality.getText().toString();
+                if(!locality.isEmpty()){
+                    idLocality = new Long(localities.indexOf(locality));
+                    search(idLocality);
+                    System.out.println("size &%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + apparts.size());
+                }
+                else{
+                    Toast.makeText(SearchApart.this,"Veuillez introduire une localité", Toast.LENGTH_LONG).show();
+
+                }
             }
         });
     };
 
-    public void search() {
+    public void search(Long idLocality) {
 
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.root);
         ConstraintSet set = new ConstraintSet();
 
         String[] results = new String[10];
-        ListAppart();
+        ListAppart(idLocality);
         //   mBtnLaunchSearch.setText(apparts.get(1).addressStreet);
 
         for (int i = 0; i < results.length; i++) {
@@ -100,26 +103,36 @@ public class Buyer_Appart extends BaseActivity {
     };
 
 
-    private void ListAppart() {
-        FirebaseDatabase mDatabase;
+    private void ListAppart(Long idLocality) {
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance();
-        //mDataBaseRef = mDatabase.getReference().child("swap-appartements").child("appart");
 
+        Query query = mDataBaseRef.child("appart").orderByChild("idLocality").equalTo(idLocality);
 
-        Query query = mDataBaseRef.child("appart");
+        Toast.makeText(SearchApart.this,"Recherche en cours pour " + idLocality, Toast.LENGTH_LONG).show();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    String idApartment;
+                    int i = 0;
                     // dataSnapshot is the "issue" node with all children with id 0
-                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        apparts.add(new Appart((String) issue.child("type").getValue(), (long) issue.child("nbRooms").getValue(), (long) issue.child("price").getValue(), (String) issue.child("addressStreet").getValue(), (String) issue.child("userId").getValue()));
+                    for (DataSnapshot apart : dataSnapshot.getChildren()) {
+                        idApartment = apart.getKey();
+                        apparts.add(idApartment);
 
-                        //String type, int nbRooms, int price, String adressStreet, String userId
+                        //System.out.println("###############################################################################" + idApartment);
+                        System.out.println(apparts.get(i) + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        i++;
+
                     }
+
+                    Intent intent = new Intent(SearchApart.this, ResultAppart.class);
+                    intent.putStringArrayListExtra("key", apparts);
+                    startActivity(intent);
+
                 }
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -128,13 +141,13 @@ public class Buyer_Appart extends BaseActivity {
         });
     }
 
-    private void ListCountries() {
+    private void ListLocalities() {
 
-    FirebaseDatabase mDatabase;
-    DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
-    mDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase mDatabase;
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance();
 
-    Query query = mDataBaseRef.child("Localities");
+        Query query = mDataBaseRef.child("Localities");
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -144,8 +157,7 @@ public class Buyer_Appart extends BaseActivity {
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         rst = (String) issue.child("nameLocality").getValue() + " (" + (String) issue.child("npa").getValue() + ")";
-                        System.out.println(rst);
-                        countries.add(rst);
+                        localities.add(rst);
                     }
                 }
             }
@@ -153,31 +165,6 @@ public class Buyer_Appart extends BaseActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
-
-        switchBuyerSeller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String statusSwitch1;
-                if (switchBuyerSeller.isChecked()) {
-                    // The toggle is enabled
-
-
-                    statusSwitch1 = switchBuyerSeller.getTextOn().toString();
-                    Intent homepageSeller = new Intent (Buyer_Appart.this, HomepageSeller.class);
-                    startActivity(homepageSeller);
-                    finish();
-
-
-                } else {
-                    // The toggle is disabled
-
-                    statusSwitch1 = switchBuyerSeller.getTextOff().toString();
-                    Intent homepageBuyer = new Intent (Buyer_Appart.this, Buyer_Appart.class);
-                    startActivity(homepageBuyer);
-                    finish();
-                }
             }
         });
 
