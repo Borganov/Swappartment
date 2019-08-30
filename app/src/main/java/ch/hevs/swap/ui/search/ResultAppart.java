@@ -30,6 +30,8 @@ import ch.hevs.swap.ui.apartment.addApartmentImages;
 
 public class ResultAppart extends AppCompatActivity {
 
+    Queue appartQueue = new Queue();
+
     ImageView imgAppart;
     TextView txtAppartId;
 
@@ -37,30 +39,23 @@ public class ResultAppart extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // manual creation of queue of appartment id //
-
-        Knot k1 = new Knot(new Info(1));
-        Knot k2 = new Knot(new Info(2));
-        Knot k3 = new Knot(new Info(3));
-        Knot k4 = new Knot(new Info(4));
-
-        Queue q1 = new Queue();
-
-        q1.file(k1);
-        q1.file(k2);
-        q1.file(k3);
-        q1.file(k4);
-
-        // end of manual creation
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_appart);
 
+        //GET PARAMETERS
+        Bundle b = getIntent().getExtras();
+        String[] appartKeys = b.getStringArray("key");
+
+        appartQueue.fillQueue(appartKeys);
+
         imgAppart = findViewById(R.id.imgAppart);
         txtAppartId = findViewById(R.id.txtAppartId);
+        updateFields();
+
 //        mSearchField = findViewById(R.id.searchField);
 
-        txtAppartId.setText(Integer.toString(q1.getFirst().getInfo().getValeur()));
+        //txtAppartId.setText(Integer.toString(q1.getFirst().getInfo().getValeur()));
 
         final int[] imageRes1 = {
                 R.drawable.home1,
@@ -85,10 +80,10 @@ public class ResultAppart extends AppCompatActivity {
 
             public void onSwipeRight() {
 
-                q1.defile();
-                if(!q1.isEmpty())
+                appartQueue.defile();
+                if(!appartQueue.isEmpty())
                 {
-                    txtAppartId.setText(Integer.toString(q1.getFirst().getInfo().getValeur()));
+                    updateFields();
                     // ADD CODE TO SAVE HOUSE TO FAVORITES
                 }
 
@@ -100,9 +95,9 @@ public class ResultAppart extends AppCompatActivity {
             }
 
             public void onSwipeLeft() {
-                q1.defile();
-                if(!q1.isEmpty())
-                    txtAppartId.setText(Integer.toString(q1.getFirst().getInfo().getValeur()));
+                appartQueue.defile();
+                if(!appartQueue.isEmpty())
+                    updateFields();
                 else
                     txtAppartId.setText("You've swiped through all houses!");
 
@@ -122,6 +117,30 @@ public class ResultAppart extends AppCompatActivity {
 
     };
 
+    public void updateFields() {
+        // get key of appartment //
+        FirebaseDatabase mDatabase;
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference("appart/");
+        mDatabase = FirebaseDatabase.getInstance();
+        String appartKey = appartQueue.getFirst().getInfo().getValeur();
+        Query query = mDataBaseRef.child(appartKey); //appart key, first element in queue
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String type;
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    txtAppartId.setText(dataSnapshot.child("type").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     public void openDialog() {
         AppartDetails appartDetails = new AppartDetails("test"); //parameter of AppartDetails = description of appartment
         appartDetails.show(getSupportFragmentManager(), "Appartment Details");

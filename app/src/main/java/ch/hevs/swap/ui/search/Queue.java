@@ -124,33 +124,6 @@ public class Queue {
             return retour ;
         }
 
-        public Knot deleteElement(int x) {
-            Knot current = first;
-
-            if(current.getInfo().getValeur() == x)
-            {
-                defile();
-                return current;
-            }
-
-            while(current != null)
-            {
-                Knot currentNext = current.getNext();
-                if(currentNext.getInfo().getValeur() == x)
-                {
-                    if(currentNext.getNext() != null)
-                        current.setNext(currentNext.getNext());
-                    else
-                        current.setNext(null);
-
-                    return current;
-                }
-                current = current.getNext();
-            }
-
-            return null;
-        }
-
         // �change de 2 Knots r�f�renc�s dans une file:
         // on �change les r�f�rences des infos.
         public void echange(Knot Knot1, Knot Knot2)
@@ -172,6 +145,13 @@ public class Queue {
                 courant = courant.getNext() ;
             }
             return chaine ;
+        }
+
+        public void fillQueue(String[] appartKeys) {
+            for(int i = 0; i<appartKeys.length; i++)
+            {
+                this.file(new Knot(new Info(appartKeys[i])));
+            }
         }
 
     }

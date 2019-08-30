@@ -112,9 +112,6 @@ public class addApartmentImages extends AppCompatActivity {
         FirebaseDatabase mDatabase;
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference("appart/-LnTOYgmXjn4OBSxuGnU");
         mDatabase = FirebaseDatabase.getInstance();
-
-
-
         Query query = mDataBaseRef.child("imgs");
 
         System.out.println("APPARTMENT PICTURE ID : ===============================================");

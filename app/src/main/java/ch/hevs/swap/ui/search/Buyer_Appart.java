@@ -3,6 +3,7 @@ package ch.hevs.swap.ui.search;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -25,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.transform.Result;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.Appart;
@@ -60,10 +63,19 @@ public class Buyer_Appart extends AppCompatActivity {
         mBtnLaunchSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                search();
+                getResults();
             }
         });
     };
+
+    public void getResults() {
+
+        String[] appartKeys = {"-Lja99ibfhvlX53Bn2ff", "LjakhNvfumoc5dbK1gF", "LjakmofH8wFh_O2SqTy", "-LmxRESpC46WOL1WXGEr" };
+
+        Intent intent = new Intent(this, ResultAppart.class);
+        intent.putExtra("key", appartKeys);
+        startActivity(intent);
+    }
 
     public void search() {
 
