@@ -89,15 +89,7 @@ public class addApartmentDetails extends AppCompatActivity {
 
     private void saveChanges(String designation, int nbRooms, int price, String address, String locality){
 
-        System.out.println("Désignation " + designation);
-        System.out.println("nbRooms " + nbRooms);
-        System.out.println("Price " + price);
-        System.out.println("Address :" + address);
-        System.out.println("localité : " + locality);
         Long localityID = new Long(localities.indexOf(locality));
-
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&& id est : "  + localityID);
-
 
         String key = appartController.insertNewAppart(designation, nbRooms, price, address, localityID);
 
@@ -108,7 +100,7 @@ public class addApartmentDetails extends AppCompatActivity {
 
     }
 
-    
+
     private ArrayList<String> ListLocalities() {
         ArrayList<String> response = new ArrayList<String>();
 
