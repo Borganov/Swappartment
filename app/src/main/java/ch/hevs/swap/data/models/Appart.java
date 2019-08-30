@@ -14,7 +14,6 @@ public class Appart {
     public long addressNo;
     public String localityId;
     public String comment;
-    public String userId;
     public ArrayList<String> pics;
 
     public Appart() {
@@ -43,12 +42,18 @@ public class Appart {
         this.pics = pics;
     }
 
-    public Appart(String type, long nbRooms, long price, String adressStreet, String userId) {
+    public Appart(String type, long nbRooms, long price, String adressStreet, String mouais) {
         this.type = type;
         this.nbRooms = nbRooms;
         this.price = price;
         this.addressStreet = adressStreet;
-        this.userId = userId;
+    }
+
+    public Appart(String type, long nbRooms, long price, String adressStreet) {
+        this.type = type;
+        this.nbRooms = nbRooms;
+        this.price = price;
+        this.addressStreet = adressStreet;
     }
 
 }

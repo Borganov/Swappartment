@@ -1,6 +1,7 @@
 package ch.hevs.swap.data.models;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -11,10 +12,16 @@ public class AppartController {
     public String insertNewAppart(String designation, int nbRooms, int price, String address) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uid = user.getUid();
 
-        Appart appart = new Appart(designation, nbRooms, price, address, "UUID EN DURE ALEX");
+
+        Appart appart = new Appart(designation, nbRooms, price, address);
         String key = mDatabase.child("appart").push().getKey();
         mDatabase.child("/appart/" + key).setValue(appart);
+
+        String key2 = mDatabase.child("/users/"+uid+"/apartmentOwned").push().getKey();
+        mDatabase.child("/users/"+uid+"/apartmentOwned/"+key2).setValue(key);
 
         return key;
     }

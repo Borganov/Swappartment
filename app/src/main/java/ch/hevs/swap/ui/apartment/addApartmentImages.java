@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -44,7 +45,7 @@ public class addApartmentImages extends AppCompatActivity {
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
-    private int index = 0;
+    private int index;
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
 
@@ -84,11 +85,12 @@ public class addApartmentImages extends AppCompatActivity {
 
         appartPics = new ArrayList<String>();
         appartController = new AppartController();
+        index = 0;
 
         //get paramas
         Bundle b = getIntent().getExtras();
         //apartmentKey = b.getString("key");
-        apartmentKey = "LnTOYgmXjn4OBSxuGnU";
+        apartmentKey = "-LnTOYgmXjn4OBSxuGnU";
 
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
@@ -117,20 +119,16 @@ public class addApartmentImages extends AppCompatActivity {
 
         Query query = mDataBaseRef.child("imgs");
 
-        System.out.println("APPARTMENT PICTURE ID : ===============================================");
+
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    System.out.println("on est dedans");
                     String url;
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         url = (String) issue.getValue();
-                        /*url = (String) issue.child("nameLocality").getValue() + " (" + (String) issue.child("npa").getValue() + ")";*/
-                        System.out.print("id:");
-                        System.out.println(url);
                         appartPics.add(url);
                     }
                 }
@@ -145,16 +143,6 @@ public class addApartmentImages extends AppCompatActivity {
 
         /* ############################################ */
         /* ############################################ */
-
-
-
-
-
-
-
-
-
-
 
         final int[] imageRes1 = {
                 R.drawable.home1,
@@ -172,14 +160,18 @@ public class addApartmentImages extends AppCompatActivity {
 
             public void onTap() {
 
-                if(index+1 == imageRes1.length)
+
+                if(index+1 == appartPics.size())
                     index = 0;
                 else
                     index++;
 
-                imageView.setImageResource(imageRes1[index]);
+                setImageViewById(apartmentKey,appartPics.get(index));
+                Toast.makeText(addApartmentImages.this, appartPics.get(index), Toast.LENGTH_SHORT).show();
+                //imageView.setImageResource(imageRes1[index]);
 
             }
+            /*
             public void onSwipeTop() {
                 Toast.makeText(addApartmentImages.this, "top", Toast.LENGTH_SHORT).show();
             }
@@ -196,7 +188,7 @@ public class addApartmentImages extends AppCompatActivity {
 
             public void onSwipeBottom() {
                 Toast.makeText(addApartmentImages.this, "bottom", Toast.LENGTH_SHORT).show();
-            }
+            }*/
 
         });
 
@@ -268,4 +260,31 @@ public class addApartmentImages extends AppCompatActivity {
 
 
     }
+
+    private void setImageViewById(String id_appartment,String id_image) {
+
+        storageReference.child("apartment/images/"+id_appartment+"/"+id_image).getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Use the bytes to display the image
+                System.out.println("Here I am ");
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(),
+                        imageView.getHeight(), false));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                System.out.println("Here we are");
+                System.out.println(exception.getMessage());
+            }
+        });
+
+
+
+    }
+
+
+
 }

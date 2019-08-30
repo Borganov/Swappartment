@@ -69,7 +69,6 @@ public class SellerApartmentDetails extends AppCompatActivity {
 
     private void getImageById() {
 
-
         storageReference.child("apartment/images/1/c901f9e9-3167-4b62-a47f-2d36a404c013").getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
