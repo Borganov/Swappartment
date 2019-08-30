@@ -92,19 +92,21 @@ public class HomepageSeller extends BaseActivity {
 
 
             //Intialization Button
+        addAppartement = findViewById(R.id.addAppartementFromSeller);
 
-        addAppartement = (Button) findViewById(R.id.addAppartementFromSeller);
-
-        addAppartement.setOnClickListener((View.OnClickListener) HomepageSeller.this);
-            //Here MainActivity.this is a Current Class Reference (context)
+        addAppartement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addAppartment();
+            }
+        });
         }
 
 
-        public void onClick(View addApartmentDetails) {
-
-            Intent intent = new Intent(HomepageSeller.this, addApartmentDetails.class);
+        public void addAppartment() {
+            Intent intent = new Intent(this, addApartmentDetails.class);
+            startActivity(intent);
         }
-
 
     }
 

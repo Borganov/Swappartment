@@ -37,6 +37,7 @@ import java.util.UUID;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.AppartController;
+import ch.hevs.swap.ui.homepage.HomepageSeller;
 
 
 public class addApartmentImages extends AppCompatActivity {
@@ -91,6 +92,14 @@ public class addApartmentImages extends AppCompatActivity {
         //get paramas
         Bundle b = getIntent().getExtras();
         apartmentKey = b.getString("key");
+
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                done();
+            }
+        });
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -163,13 +172,6 @@ public class addApartmentImages extends AppCompatActivity {
 
     }
 
-    private void done(){
-        // changement d'activité
-        Intent intent = new Intent(this, addApartmentDetails.class);
-        startActivity(intent);
-    }
-
-
 
     private void uploadImage() {
 
@@ -234,8 +236,6 @@ public class addApartmentImages extends AppCompatActivity {
             }
         }
 
-
-
     }
 
     private void setImageViewById(String id_appartment,String id_image) {
@@ -258,10 +258,11 @@ public class addApartmentImages extends AppCompatActivity {
             }
         });
 
-
-
     }
-
+    public void done() {
+        Intent intent = new Intent(this, HomepageSeller.class);
+        startActivity(intent);
+    }
 
 
 }
