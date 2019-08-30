@@ -3,14 +3,15 @@ package ch.hevs.swap.ui.search;
 
 
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,68 +28,65 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.transform.Result;
-
 import ch.hevs.swap.R;
-import ch.hevs.swap.data.models.Appart;
 
-public class Buyer_Appart extends AppCompatActivity {
+public class SearchApart extends AppCompatActivity {
 
     private Button mBtnLaunchSearch;
 
-    List<String> countries;
-    List<Appart> apparts;
+    List<String> localities;
+    ArrayList<String> apparts;
+
+    EditText mlocality;
+    String locality;
+    Long idLocality;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_apart);
-
+        mlocality = findViewById(R.id.autoComplete_Locality);
 //        mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);
-        countries = new ArrayList<>();
+        localities = new ArrayList<>();
 
-        ListCountries();
+        ListLocalities();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, countries);
+                android.R.layout.simple_dropdown_item_1line, localities);
         AutoCompleteTextView textView = (AutoCompleteTextView)
                 findViewById(R.id.autoComplete_Locality);
         textView.setDropDownVerticalOffset(2);
         textView.setAdapter(adapter);
 
-
         apparts = new ArrayList<>();
 
+
         mBtnLaunchSearch.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                getResults();
+                locality = mlocality.getText().toString();
+                if(!locality.isEmpty()){
+                    idLocality = new Long(localities.indexOf(locality));
+                    search(idLocality);
+
+                }
+                else{
+                    Toast.makeText(SearchApart.this,"Veuillez introduire une localité", Toast.LENGTH_LONG).show();
+
+                }
             }
         });
     };
 
-    public void getResults() {
-
-        ArrayList<String> apparts = new ArrayList<>();
-        apparts.add("-Lja99ibfhvlX53Bn2ff");
-        apparts.add("-LnTOYgmXjn4OBSxuGnU");
-        apparts.add("-LjakmofH8wFh_O2SqTy");
-        apparts.add("-LmxRESpC46WOL1WXGEr");
-        //String[] appartKeys = {"-Lja99ibfhvlX53Bn2ff", "-LnTOYgmXjn4OBSxuGnU", "-LjakmofH8wFh_O2SqTy", "-LmxRESpC46WOL1WXGEr" };
-
-        Intent intent = new Intent(this, ResultAppart.class);
-        intent.putStringArrayListExtra("key", apparts);
-        startActivity(intent);
-    }
-
-    public void search() {
+    public void search(Long idLocality) {
 
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.root);
         ConstraintSet set = new ConstraintSet();
 
         String[] results = new String[10];
-        ListAppart();
+        ListAppart(idLocality);
         //   mBtnLaunchSearch.setText(apparts.get(1).addressStreet);
 
         for (int i = 0; i < results.length; i++) {
@@ -104,21 +102,24 @@ public class Buyer_Appart extends AppCompatActivity {
     };
 
 
-    private void ListAppart() {
-        FirebaseDatabase mDatabase;
+    private void ListAppart(Long idLocality) {
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance();
-        //mDataBaseRef = mDatabase.getReference().child("swap-appartements").child("appart");
 
+        Query query = mDataBaseRef.child("appart").orderByChild("idLocality").equalTo(idLocality);
 
-        Query query = mDataBaseRef.child("appart");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            Toast.makeText(SearchApart.this,"Recherche en cours pour " + locality, Toast.LENGTH_LONG).show();
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    String idApartment;
                     // dataSnapshot is the "issue" node with all children with id 0
-                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        apparts.add(new Appart((String) issue.child("type").getValue(), (long) issue.child("nbRooms").getValue(), (long) issue.child("price").getValue(), (String) issue.child("addressStreet").getValue(), (String) issue.child("userId").getValue()));
+                    for (DataSnapshot apart : dataSnapshot.getChildren()) {
+                        idApartment = apart.getKey();
+                        apparts.add(idApartment);
+                        System.out.println("###############################################################################" + idApartment);
+//                        ++ idApartment;
+//                        apparts.add(new Appart((String) issue.child("type").getValue(), (long) issue.child("nbRooms").getValue(), (long) issue.child("price").getValue(), (String) issue.child("addressStreet").getValue(), (String) issue.child("userId").getValue()));
 
                         //String type, int nbRooms, int price, String adressStreet, String userId
                     }
@@ -132,7 +133,7 @@ public class Buyer_Appart extends AppCompatActivity {
         });
     }
 
-    private void ListCountries() {
+    private void ListLocalities() {
 
     FirebaseDatabase mDatabase;
     DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
@@ -148,8 +149,7 @@ public class Buyer_Appart extends AppCompatActivity {
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         rst = (String) issue.child("nameLocality").getValue() + " (" + (String) issue.child("npa").getValue() + ")";
-                        System.out.println(rst);
-                        countries.add(rst);
+                        localities.add(rst);
                     }
                 }
             }
