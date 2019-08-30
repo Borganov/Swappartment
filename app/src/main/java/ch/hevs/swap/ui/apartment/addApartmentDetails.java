@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.AppartController;
+import ch.hevs.swap.ui.homepage.HomepageSeller;
 
 public class addApartmentDetails extends AppCompatActivity {
 
@@ -57,7 +59,14 @@ public class addApartmentDetails extends AppCompatActivity {
         textView.setDropDownVerticalOffset(3);
 
         textView.setAdapter(adapter);
+        cancelButton = (Button)findViewById(R.id.cancelButton);
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel();
+            }
+        });
     }
 
     private void initializeForm() {
@@ -134,6 +143,9 @@ public class addApartmentDetails extends AppCompatActivity {
         return response;
     }
 
-
+    public void cancel() {
+        Intent intent = new Intent(this, HomepageSeller.class);
+        startActivity(intent);
+    }
 
 }
