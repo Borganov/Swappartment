@@ -1,0 +1,159 @@
+{
+  "project_info": {
+    "project_number": "466922890622",
+    "firebase_url": "https://swap-appartements.firebaseio.com",
+    "project_id": "swap-appartements",
+    "storage_bucket": "swap-appartements.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466922890622:android:8b027acc2e7f2d8b",
+        "android_client_info": {
+          "package_name": "ch.hevs.swap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466922890622-rq4o9i9g7as7067okvj3e4lntpsuugj8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.hevs.swap",
+            "certificate_hash": "95699bb5c39e639fee21c286ff68c71dfcc43b59"
+          }
+        },
+        {
+          "client_id": "466922890622-461b3i4d6l7nm6lkeibnl85mhqbg6kbr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.hevs.swap",
+            "certificate_hash": "5413980f4e2cf996e88984c9872c488e010405a6"
+          }
+        },
+        {
+          "client_id": "466922890622-m6ge0c1a3gma6kcoau7nh8q2hr6jab72.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.hevs.swap",
+            "certificate_hash": "0123fe961bf79b363aed8544034ba16e0e726b0f"
+          }
+        },
+        {
+          "client_id": "466922890622-d932502hdgqh7gaihmoiebsctia64ijo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDupMOOkGphAtzFTN0ih7esC4DAr50utjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466922890622-d932502hdgqh7gaihmoiebsctia64ijo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466922890622:android:db9f7ed24342be9a",
+        "android_client_info": {
+          "package_name": "com.example.init"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466922890622-v8qdc5kmif3fopkjccf9qt55o0o6bt9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.init",
+            "certificate_hash": "0123fe961bf79b363aed8544034ba16e0e726b0f"
+          }
+        },
+        {
+          "client_id": "466922890622-d932502hdgqh7gaihmoiebsctia64ijo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDupMOOkGphAtzFTN0ih7esC4DAr50utjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466922890622-d932502hdgqh7gaihmoiebsctia64ijo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466922890622:android:87fcb66cc6ca320a",
+        "android_client_info": {
+          "package_name": "com.google.firebase.quickstart.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466922890622-d932502hdgqh7gaihmoiebsctia64ijo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDupMOOkGphAtzFTN0ih7esC4DAr50utjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466922890622-d932502hdgqh7gaihmoiebsctia64ijo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466922890622:android:fee5e5226bc210f0",
+        "android_client_info": {
+          "package_name": "com.simcoder.tinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466922890622-d932502hdgqh7gaihmoiebsctia64ijo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDupMOOkGphAtzFTN0ih7esC4DAr50utjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466922890622-d932502hdgqh7gaihmoiebsctia64ijo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

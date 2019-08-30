@@ -3,16 +3,16 @@ package ch.hevs.swap.ui.search;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
@@ -28,10 +28,14 @@ import java.util.List;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.Appart;
+import ch.hevs.swap.ui.homepage.BaseActivity;
+import ch.hevs.swap.ui.homepage.HomepageSeller;
 
-public class Buyer_Appart extends AppCompatActivity {
+public class Buyer_Appart extends BaseActivity {
 
     private Button mBtnLaunchSearch;
+
+    private Switch switchBuyerSeller;
 
     List<String> countries;
     List<Appart> apparts;
@@ -40,6 +44,15 @@ public class Buyer_Appart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer_appart);
+
+
+        switchBuyerSeller = (Switch) findViewById(R.id.Switch);
+        switchBuyerSeller.setChecked(false);
+        switchBuyerSeller.setTextOn("Seller");
+        switchBuyerSeller.setTextOff("Buyer");
+
+
+
 
 //        mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);
@@ -140,6 +153,31 @@ public class Buyer_Appart extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+
+        switchBuyerSeller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String statusSwitch1;
+                if (switchBuyerSeller.isChecked()) {
+                    // The toggle is enabled
+
+
+                    statusSwitch1 = switchBuyerSeller.getTextOn().toString();
+                    Intent homepageSeller = new Intent (Buyer_Appart.this, HomepageSeller.class);
+                    startActivity(homepageSeller);
+                    finish();
+
+
+                } else {
+                    // The toggle is disabled
+
+                    statusSwitch1 = switchBuyerSeller.getTextOff().toString();
+                    Intent homepageBuyer = new Intent (Buyer_Appart.this, Buyer_Appart.class);
+                    startActivity(homepageBuyer);
+                    finish();
+                }
             }
         });
 

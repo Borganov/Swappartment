@@ -1,14 +1,13 @@
 package ch.hevs.swap.ui.homepage;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-
-
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,12 +15,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.login.LoginEditProfil;
 import ch.hevs.swap.ui.login.LoginForgetPassword;
-import ch.hevs.swap.ui.newAppart.NewAppartActivity;
 import ch.hevs.swap.ui.search.Buyer_Appart;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener {

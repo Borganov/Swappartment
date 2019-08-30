@@ -35,5 +35,9 @@
     <string name="cancel">"Annuler"</string>
 
 
+    <string name="buyer">"Buyer"</string>
+    <string name="seller">"Seller"</string>
+
+
 
 </resources>
