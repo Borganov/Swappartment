@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -236,5 +237,9 @@ public class ResultAppart extends BaseActivity {
             }
         });
 
+    }
+
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, SearchApart.class));
     }
 }

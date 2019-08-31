@@ -72,5 +72,9 @@ public class HomepageSeller extends BaseActivity {
             startActivity(intent);
         }
 
+    public void onBackPressed() {
+        this.startActivity(new Intent(this,HomepageSeller.class));
+    }
+
     }
 

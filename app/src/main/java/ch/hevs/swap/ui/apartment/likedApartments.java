@@ -3,6 +3,7 @@ package ch.hevs.swap.ui.apartment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -21,6 +22,8 @@ import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.AppartController;
 import ch.hevs.swap.data.models.UserController;
 import ch.hevs.swap.ui.homepage.BaseActivity;
+import ch.hevs.swap.ui.homepage.HomepageBuyer;
+import ch.hevs.swap.ui.homepage.HomepageSeller;
 
 public class likedApartments extends BaseActivity {
     private ListView mListView;
@@ -77,6 +80,9 @@ public class likedApartments extends BaseActivity {
             }
         });
 
+    }
 
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, HomepageBuyer.class));
     }
 }

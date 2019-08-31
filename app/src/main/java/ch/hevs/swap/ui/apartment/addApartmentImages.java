@@ -267,4 +267,8 @@ public class addApartmentImages extends BaseActivity {
         startActivity(intent);
     }
 
+    public void onBackPressed() {
+        this.startActivity(new Intent(this,HomepageSeller.class));
+    }
+
 }

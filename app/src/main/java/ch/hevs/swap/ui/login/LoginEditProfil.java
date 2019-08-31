@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.data.models.User;
 import ch.hevs.swap.ui.homepage.HomePage;
+import ch.hevs.swap.ui.homepage.HomepageBuyer;
 
 public class LoginEditProfil extends AppCompatActivity implements View.OnClickListener {
 
@@ -126,5 +127,9 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
         }
 
         return valid;
+    }
+
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, HomePage.class));
     }
 }

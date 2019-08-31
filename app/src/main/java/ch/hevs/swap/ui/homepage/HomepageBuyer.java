@@ -16,12 +16,14 @@ public class HomepageBuyer extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer_homepage);
-
-
     }
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, HomepageBuyer.class));
     }
 }

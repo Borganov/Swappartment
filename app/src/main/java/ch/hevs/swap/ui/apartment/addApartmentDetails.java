@@ -139,4 +139,8 @@ public class addApartmentDetails extends BaseActivity {
         startActivity(intent);
     }
 
+    public void onBackPressed() {
+        this.startActivity(new Intent(this,HomepageSeller.class));
+    }
+
 }

@@ -28,4 +28,5 @@ public class AppartDetails extends AppCompatDialogFragment {
                 });
         return builder.create();
     }
+
 }

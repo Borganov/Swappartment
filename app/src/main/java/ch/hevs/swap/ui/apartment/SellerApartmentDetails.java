@@ -3,6 +3,7 @@ package ch.hevs.swap.ui.apartment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.homepage.BaseActivity;
+import ch.hevs.swap.ui.homepage.HomepageBuyer;
+import ch.hevs.swap.ui.homepage.HomepageSeller;
 
 public class SellerApartmentDetails extends BaseActivity {
 
@@ -87,10 +90,10 @@ public class SellerApartmentDetails extends BaseActivity {
                 System.out.println(exception.getMessage());
             }
         });
-
-
-
     }
 
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, HomepageSeller.class));
+    }
 
 }

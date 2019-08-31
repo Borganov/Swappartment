@@ -169,5 +169,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         return valid;
     }
 
-
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, HomePage.class));
+    }
 }

@@ -2,6 +2,8 @@ package ch.hevs.swap.ui.login;
 
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.homepage.HomePage;
+import ch.hevs.swap.ui.homepage.HomepageBuyer;
 
 public class LoginForgetPassword extends AppCompatActivity  implements View.OnClickListener {
 
@@ -86,5 +90,9 @@ public class LoginForgetPassword extends AppCompatActivity  implements View.OnCl
     }
     private void showSnackbar(String message) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, HomePage.class));
     }
 }

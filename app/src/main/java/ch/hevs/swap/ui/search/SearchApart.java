@@ -177,4 +177,8 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
         Intent homepageLiked = new Intent (SearchApart.this, likedApartments.class);
         startActivity(homepageLiked);
     }
+
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, SearchApart.class));
+    }
 }
