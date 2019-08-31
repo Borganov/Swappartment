@@ -31,9 +31,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.apartment.likedApartments;
 import ch.hevs.swap.ui.homepage.BaseActivity;
+import ch.hevs.swap.ui.homepage.HomepageBuyer;
 
-public class SearchApart extends BaseActivity {
+public class SearchApart extends BaseActivity implements View.OnClickListener {
 
     private Button mBtnLaunchSearch;
 
@@ -52,7 +54,7 @@ public class SearchApart extends BaseActivity {
 //        mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);
         localities = new ArrayList<>();
-
+        Button mButton = findViewById(R.id.btnFavoris);
         ListLocalities();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -61,6 +63,9 @@ public class SearchApart extends BaseActivity {
                 findViewById(R.id.autoComplete_Locality);
         textView.setDropDownVerticalOffset(2);
         textView.setAdapter(adapter);
+
+
+        mButton.setOnClickListener(this);
 
         apparts = new ArrayList<String>();
 
@@ -171,4 +176,9 @@ public class SearchApart extends BaseActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent homepageLiked = new Intent (SearchApart.this, likedApartments.class);
+        startActivity(homepageLiked);
+    }
 }

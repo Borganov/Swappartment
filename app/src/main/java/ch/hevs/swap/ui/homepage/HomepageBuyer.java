@@ -17,15 +17,11 @@ public class HomepageBuyer extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer_homepage);
 
-        Button mButton = findViewById(R.id.btnFavoris);
-
-        mButton.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
-        Intent homepageLiked = new Intent (HomepageBuyer.this, likedApartments.class);
-        startActivity(homepageLiked);
+
     }
 }
