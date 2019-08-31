@@ -68,6 +68,7 @@ public class ResultAppart extends AppCompatActivity {
         appartQueue.fillQueue(appartKeys);
 
         imgAppart = findViewById(R.id.imgAppart);
+        imgAppart.setTag((Integer)999);
 
 
         txtAppartId = findViewById(R.id.txtAppartId);
