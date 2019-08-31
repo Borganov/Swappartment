@@ -33,7 +33,7 @@ import java.util.List;
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.homepage.BaseActivity;
 
-public class SearchApart extends AppCompatActivity {
+public class SearchApart extends BaseActivity {
 
     private Button mBtnLaunchSearch;
 

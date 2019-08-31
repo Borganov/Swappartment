@@ -55,42 +55,6 @@ public class HomepageSeller extends BaseActivity {
 
         listView.setAdapter(arrayAdapter);
 
-
-
-
-
-
-
-
-        final Switch sw = (Switch) findViewById(R.id.Switch);
-        sw.setChecked(true);
-        sw.setTextOn("Seller");
-        sw.setTextOff("Buyer");
-
-
-        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String statusSwitch1;
-                if (sw.isChecked()) {
-                    // The toggle is enabled
-                    statusSwitch1 = sw.getTextOn().toString();
-                    Intent homepageSeller = new Intent (HomepageSeller.this, HomepageSeller.class);
-                    startActivity(homepageSeller);
-                    finish();
-
-
-                } else {
-                    // The toggle is disabled
-                    statusSwitch1 = sw.getTextOff().toString();
-                    Intent homepageBuyer = new Intent (HomepageSeller.this, SearchApart.class);
-                    startActivity(homepageBuyer);
-                    finish();
-                }
-            }
-        });
-
-
-
             //Intialization Button
         addAppartement = findViewById(R.id.addAppartementFromSeller);
 
