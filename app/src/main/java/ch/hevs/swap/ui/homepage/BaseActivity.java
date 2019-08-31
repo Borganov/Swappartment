@@ -2,6 +2,8 @@ package ch.hevs.swap.ui.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -11,28 +13,28 @@ import ch.hevs.swap.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    GlobalVariable gv;
 
-    private Switch switchBuyerSeller;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buyer_homepage);
+    public boolean onCreateOptionsMenu(Menu menu){
 
+        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem item = menu.findItem(R.id.app_bar_switch);
+        item.setActionView(R.layout.switch_item);
 
-
-//        ToggleButton toggle = (ToggleButton) findViewById(R.id.Switch);
-        switchBuyerSeller = (Switch) findViewById(R.id.Switch);
-        switchBuyerSeller.setChecked(true);
-        switchBuyerSeller.setTextOn("Buyer");
-        switchBuyerSeller.setTextOff("Seller");
+        Switch mySwitch = item.getActionView().findViewById(R.id.switch_item);
 
 
-        switchBuyerSeller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        gv = (GlobalVariable) getApplication();
+        mySwitch.setChecked(gv.isBuyer());
+
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 String statusSwitch1;
-                if (switchBuyerSeller.isChecked()) {
-                    // The toggle is enabled
-                    statusSwitch1 = switchBuyerSeller.getTextOn().toString();
+
+                if (mySwitch.isChecked()) {
+                    gv.setBuyer(true);
                     Intent homepageSeller = new Intent (BaseActivity.this, HomepageSeller.class);
                     startActivity(homepageSeller);
                     finish();
@@ -42,23 +44,25 @@ public abstract class BaseActivity extends AppCompatActivity {
 
                 } else {
                     // The toggle is disabled
-                    statusSwitch1 = switchBuyerSeller.getTextOff().toString();
+                    gv.setBuyer(false);
                     Intent homepageBuyer = new Intent (BaseActivity.this, HomepageBuyer.class);
                     startActivity(homepageBuyer);
                     finish();
                 }
             }
+
+
         });
-
-
-
+        return true;
     }
 
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
 
