@@ -90,7 +90,7 @@ public class HomePage extends BaseActivity implements View.OnClickListener {
         {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
 
-            user = mAuth.getCurrentUser();
+//            user = mAuth.getCurrentUser();
             if(user != null ) {
                 Intent intent = new Intent(HomePage.this, SearchApart.class);
                 intent.setFlags(
@@ -98,6 +98,9 @@ public class HomePage extends BaseActivity implements View.OnClickListener {
                                 Intent.FLAG_ACTIVITY_NO_HISTORY
                 );
                 startActivity(intent);
+            }
+            else{
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ NOT CONNECTED");
             }
         }
     }

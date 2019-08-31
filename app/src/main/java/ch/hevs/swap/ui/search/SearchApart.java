@@ -1,8 +1,5 @@
 package ch.hevs.swap.ui.search;
 
-
-
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -51,7 +48,6 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_apart);
         mlocality = findViewById(R.id.autoComplete_Locality);
-//        mSearchField = findViewById(R.id.searchField);
         mBtnLaunchSearch = findViewById(R.id.btnLaunchSearch);
         localities = new ArrayList<>();
         Button mButton = findViewById(R.id.btnFavoris);
@@ -77,38 +73,42 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
                 if(!locality.isEmpty()){
                     idLocality = new Long(localities.indexOf(locality));
                     search(idLocality);
-                    System.out.println("size &%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + apparts.size());
                 }
                 else{
                     Toast.makeText(SearchApart.this,"Veuillez introduire une localité", Toast.LENGTH_LONG).show();
-
                 }
             }
         });
     };
 
+    /**
+     *
+     * @param idLocality
+     */
     public void search(Long idLocality) {
 
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.root);
         ConstraintSet set = new ConstraintSet();
 
-        String[] results = new String[10];
+//        String[] results = new String[10];
         ListAppart(idLocality);
         //   mBtnLaunchSearch.setText(apparts.get(1).addressStreet);
 
-        for (int i = 0; i < results.length; i++) {
-            TextView view = new TextView(this);
-            view.setId(View.generateViewId());
-            view.setText(results[i]);
-            layout.addView(view, i);
-            set.clone(layout);
-            set.connect(view.getId(), ConstraintSet.TOP, layout.getId(), ConstraintSet.TOP, 60 + (i * 70));
-            set.applyTo(layout);
-        }
-
+//        for (int i = 0; i < results.length; i++) {
+//            TextView view = new TextView(this);
+//            view.setId(View.generateViewId());
+//            view.setText(results[i]);
+//            layout.addView(view, i);
+//            set.clone(layout);
+//            set.connect(view.getId(), ConstraintSet.TOP, layout.getId(), ConstraintSet.TOP, 60 + (i * 70));
+//            set.applyTo(layout);
+//        }
     };
 
-
+    /**
+     * List all apartment located at a locality defined by idLocality
+     * @param idLocality
+     */
     private void ListAppart(Long idLocality) {
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
 
@@ -125,20 +125,13 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
                     for (DataSnapshot apart : dataSnapshot.getChildren()) {
                         idApartment = apart.getKey();
                         apparts.add(idApartment);
-
-                        //System.out.println("###############################################################################" + idApartment);
-                        System.out.println(apparts.get(i) + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        i++;
-
                     }
 
                     Intent intent = new Intent(SearchApart.this, ResultAppart.class);
                     intent.putStringArrayListExtra("key", apparts);
                     startActivity(intent);
-
                 }
             }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -147,6 +140,9 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
         });
     }
 
+    /**
+     * List all localities from CH, returning String with "LocalityName (NPA)"
+     */
     private void ListLocalities() {
 
         FirebaseDatabase mDatabase;
