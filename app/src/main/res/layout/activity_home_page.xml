@@ -10,40 +10,14 @@
 
     <TextView
         android:id="@+id/homepage_title"
-        android:layout_width="387dp"
-        android:layout_height="340dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/app_name"
-        android:textSize="80sp"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_marginBottom="140dp"
+        android:text="@string/app_displayName"
+        android:textAlignment="center"
+        android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/HomePage_Email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/HomePage_Login"
-        android:layout_width="300dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/HomePage_Login"
-        app:layout_constraintBottom_toTopOf="@+id/HomePage_CreateLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/HomePage_CreateLogin"
-        android:layout_width="300dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/HomePage_Create_Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/HomePage_Email"
@@ -79,13 +53,36 @@
         android:id="@+id/HomePage_ForgetPassword"
         android:layout_width="179dp"
         android:layout_height="23dp"
-
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/HomePage_ForgetPassword"
         android:textAlignment="center"
         android:textColor="#0015A2"
         app:layout_constraintBottom_toTopOf="@+id/HomePage_Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/HomePage_Login"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/HomePage_Login"
+        app:layout_constraintBottom_toTopOf="@+id/HomePage_CreateLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/HomePage_CreateLogin"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/HomePage_Create_Login"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
