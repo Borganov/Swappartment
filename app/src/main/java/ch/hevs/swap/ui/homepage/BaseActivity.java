@@ -10,6 +10,7 @@ import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.search.SearchApart;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 } else {
                     // The toggle is disabled
                     gv.setBuyer(false);
-                    Intent homepageBuyer = new Intent (BaseActivity.this, HomepageBuyer.class);
+                    Intent homepageBuyer = new Intent (BaseActivity.this, SearchApart.class);
                     startActivity(homepageBuyer);
                     finish();
                 }

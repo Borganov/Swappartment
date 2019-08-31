@@ -8,6 +8,22 @@
     android:id="@+id/root"
     android:background="@color/cardview_light_background" >
 
+    <Button
+        android:id="@+id/btnFavoris"
+        android:layout_width="305dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Favoris"
+        app:layout_constraintBottom_toTopOf="@+id/autoComplete_Locality"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.634"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Favoris" />
+
     <AutoCompleteTextView
         android:id="@+id/autoComplete_Locality"
         android:layout_width="200dp"
