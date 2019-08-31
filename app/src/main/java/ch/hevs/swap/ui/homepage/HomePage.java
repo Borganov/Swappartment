@@ -46,9 +46,11 @@ public class HomePage extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.HomePage_CreateLogin).setOnClickListener(this);
         findViewById(R.id.HomePage_ForgetPassword).setOnClickListener(this);
    //     mDatabase = FirebaseDatabase.getInstance().getReference();
+       // FirebaseAuth.getInstance().signOut();
         mAuth = FirebaseAuth.getInstance();
-
         user = mAuth.getCurrentUser();
+
+
         updateUI(user);
         if(user != null)
         {
