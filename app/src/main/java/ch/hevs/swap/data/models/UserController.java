@@ -13,6 +13,14 @@ import java.util.ArrayList;
 public class UserController {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    final ArrayList<String> lstapartLiked = new ArrayList<>();
+
+    public UserController() {
+        apartLiked();
+    }
+    public ArrayList<String> getLstapartLiked() {
+        return lstapartLiked;
+    }
 
     public void addApartViewed(String uidApp, boolean like)
     {
@@ -22,13 +30,14 @@ public class UserController {
         // usercon.AddApartViewed(appartQueue.getFirst().getInfo().getValeur(),true);
     }
 
-    public ArrayList<String> apartLiked () {
+    public void apartLiked () {
 
-        ArrayList<String> lstapartLiked = new ArrayList<>();
+
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        Query query = mDataBaseRef.child("users/" + mAuth.getCurrentUser().getUid() + "/apartViewed/");
 
+        Query query = mDataBaseRef.child("users/" + mAuth.getCurrentUser().getUid() + "/apartViewed");
+        lstapartLiked.add("test 1");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -38,16 +47,22 @@ public class UserController {
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         appartUID = (String) issue.getKey();
                         System.out.println("################"  + appartUID + " " + issue.getValue().toString());
+                        AddinList(appartUID);
                         lstapartLiked.add(appartUID);
                     }
+
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-        return lstapartLiked;
+
+
+    }
+    public void AddinList(String appart)
+    {
+        lstapartLiked.add(appart);
     }
 }
