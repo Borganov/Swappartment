@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import ch.hevs.swap.ui.homepage.BaseActivity;
+
 public class AppartDetails extends AppCompatDialogFragment {
 
     String details;

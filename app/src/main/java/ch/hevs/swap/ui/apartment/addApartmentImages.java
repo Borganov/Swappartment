@@ -37,10 +37,11 @@ import java.util.UUID;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.AppartController;
+import ch.hevs.swap.ui.homepage.BaseActivity;
 import ch.hevs.swap.ui.homepage.HomepageSeller;
 
 
-public class addApartmentImages extends AppCompatActivity {
+public class addApartmentImages extends BaseActivity {
 
     private static final int SWIPE_MIN_DISTANCE = 10;
     private static final int SWIPE_MAX_OFF_PATH = 250;

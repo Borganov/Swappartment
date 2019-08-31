@@ -24,7 +24,7 @@ import ch.hevs.swap.ui.login.LoginForgetPassword;
 import ch.hevs.swap.ui.search.SearchApart;
 
 
-public class HomePage extends BaseActivity implements View.OnClickListener {
+public class HomePage extends AppCompatActivity implements View.OnClickListener {
 
     private EditText mEmailField;
     private EditText mPasswordField;

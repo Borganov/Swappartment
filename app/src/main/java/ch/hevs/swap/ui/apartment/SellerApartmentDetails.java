@@ -24,8 +24,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.ui.homepage.BaseActivity;
 
-public class SellerApartmentDetails extends AppCompatActivity {
+public class SellerApartmentDetails extends BaseActivity {
 
     private Button btnGetImage;
     private ImageView imageView;

@@ -14,8 +14,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.Appart;
+import ch.hevs.swap.ui.homepage.BaseActivity;
 
-public class NewAppartActivity extends AppCompatActivity {
+public class NewAppartActivity extends BaseActivity {
 
     private static final String TAG = "NewPostActivity";
     private static final String REQUIRED = "Required";

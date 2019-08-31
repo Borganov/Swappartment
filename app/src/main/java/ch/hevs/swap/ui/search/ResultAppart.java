@@ -35,8 +35,9 @@ import ch.hevs.swap.data.models.Appart;
 import ch.hevs.swap.data.models.UserController;
 import ch.hevs.swap.ui.apartment.OnSwipeTouchListener;
 import ch.hevs.swap.ui.apartment.addApartmentImages;
+import ch.hevs.swap.ui.homepage.BaseActivity;
 
-public class ResultAppart extends AppCompatActivity {
+public class ResultAppart extends BaseActivity {
 
     //FIREBASE
     FirebaseStorage storage;
