@@ -13,4 +13,8 @@
         android:id="@+id/seller"
         android:title="@string/seller"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/logout"
+        android:title="Log out"
+        app:showAsAction="always" />
 </menu>

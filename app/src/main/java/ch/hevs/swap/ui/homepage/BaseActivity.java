@@ -9,12 +9,17 @@ import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.search.SearchApart;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
     GlobalVariable gv;
+    FirebaseUser user;
+    private FirebaseAuth mAuth;
 
     public boolean onCreateOptionsMenu(Menu menu){
 
@@ -24,7 +29,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         Switch mySwitch = item.getActionView().findViewById(R.id.switch_item);
 
-
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         gv = (GlobalVariable) getApplication();
         mySwitch.setChecked(gv.isBuyer());
 
@@ -55,6 +61,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         });
         return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.logout:
+                mAuth.getInstance().signOut();
+                Intent intent = new Intent(this, HomePage.class);
+                startActivity(intent);
+                return true;
+            default:
+                return false;
+        }
+
     }
 
 }
