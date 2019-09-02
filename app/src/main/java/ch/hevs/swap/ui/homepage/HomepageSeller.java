@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 
@@ -26,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 import ch.hevs.swap.R;
-import ch.hevs.swap.ui.search.Buyer_Appart;
+import ch.hevs.swap.ui.apartment.addApartmentDetails;
 
 
 public class HomepageSeller extends BaseActivity {
@@ -45,6 +43,7 @@ public class HomepageSeller extends BaseActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
+
     String uid;
 
     @Override
@@ -56,6 +55,7 @@ public class HomepageSeller extends BaseActivity {
         user =FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
         ArrayList<String> itemList = new ArrayList<>();
+        ArrayList<String> apartmentIdList = new ArrayList<>();
 
         //Firebase init
         storage = FirebaseStorage.getInstance();
@@ -68,8 +68,10 @@ public class HomepageSeller extends BaseActivity {
 
         apartmentKey = null;
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("users/"+uid);
         mDatabase = FirebaseDatabase.getInstance();
+        databaseReference = mDatabase.getReference("users/"+uid);
+
+
 
         Query query = databaseReference.child("apartmentOwned");
 
@@ -78,17 +80,45 @@ public class HomepageSeller extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                     itemList.clear();
-                    String userApartment;
+                    apartmentIdList.clear();
+
                     // dataSnapshot is the "issue" node with all children with id 0
 
-                    userApartment = dataSnapshot.child(uid).child("ap").getValue(String.class);
-                    itemList.add(userApartment);
+                for (DataSnapshot childrenSnapshot:dataSnapshot.getChildren())
+                {
+
+                    String apartmentId = childrenSnapshot.getValue(String.class);
+
+                    apartmentIdList.add(apartmentId);
+
+                }
+                Query queryNameApart = mDatabase.getReference("appart");
+                queryNameApart.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(String apartId:apartmentIdList)
+                        {
+                            String apartementName = dataSnapshot.child(apartId).child("designation").getValue(String.class);
+                            itemList.add(apartementName);
+
+                        }
+
+                        adapter = new ArrayAdapter(HomepageSeller.this, android.R.layout.simple_list_item_1, itemList);
+                        listView.setAdapter(adapter);
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
 
 
 
-                    adapter = new ArrayAdapter(HomepageSeller.this, android.R.layout.simple_list_item_1, itemList);
-                    listView.setAdapter(adapter);
 
 
             }
@@ -105,55 +135,21 @@ public class HomepageSeller extends BaseActivity {
 
 
 
-
-
-
-
-
-        final Switch sw = (Switch) findViewById(R.id.Switch);
-        sw.setChecked(true);
-        sw.setTextOn("Seller");
-        sw.setTextOff("Buyer");
-
-
-        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String statusSwitch1;
-                if (sw.isChecked()) {
-                    // The toggle is enabled
-                    statusSwitch1 = sw.getTextOn().toString();
-                    Intent homepageSeller = new Intent (HomepageSeller.this, HomepageSeller.class);
-                    startActivity(homepageSeller);
-                    finish();
-
-
-                } else {
-                    // The toggle is disabled
-                    statusSwitch1 = sw.getTextOff().toString();
-                    Intent homepageBuyer = new Intent (HomepageSeller.this, Buyer_Appart.class);
-                    startActivity(homepageBuyer);
-                    finish();
-                }
-            }
-        });
-
-
-
             //Intialization Button
+            addAppartement = findViewById(R.id.addAppartementFromSeller);
 
-        addAppartement = (Button) findViewById(R.id.addAppartementFromSeller);
-
-        addAppartement.setOnClickListener((View.OnClickListener) HomepageSeller.this);
-            //Here MainActivity.this is a Current Class Reference (context)
+        addAppartement.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addAppartment();
+                }
+            });
         }
 
 
-        public void onClick(View addApartmentDetails) {
-
-            Intent intent = new Intent(HomepageSeller.this, addApartmentDetails.class);
+        public void addAppartment() {
+            Intent intent = new Intent(this, addApartmentDetails.class);
+            startActivity(intent);
         }
-
 
     }
-
-
