@@ -16,7 +16,8 @@
 
         <activity android:name=".ui.apartment.likedApartments"/>
         <activity android:name=".ui.search.ResultAppart"/>
-        <activity android:name=".ui.search.SearchApart"/>
+        <activity android:name=".ui.search.SearchApart"
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ui.login.LoginEditProfil"/>
 

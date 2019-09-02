@@ -13,12 +13,13 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="24dp"
         android:completionThreshold="1"
         android:dropDownHeight="150dp"
         android:minEms="120"
         android:popupBackground="@color/colorPrimary"
         android:dropDownVerticalOffset="2dp"
+        android:hint="Please enter a locality"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,9 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="24dp"
         android:height="36dp"
         android:text="Go!"
         app:layout_constraintStart_toEndOf="@id/autoComplete_Locality"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

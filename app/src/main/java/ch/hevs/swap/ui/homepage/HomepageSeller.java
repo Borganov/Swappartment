@@ -13,6 +13,7 @@ import android.widget.Switch;
 import java.util.ArrayList;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.data.models.UserController;
 import ch.hevs.swap.ui.apartment.addApartmentDetails;
 import ch.hevs.swap.ui.search.SearchApart;
 
@@ -49,6 +50,9 @@ public class HomepageSeller extends BaseActivity {
         arrayList.add("Maison 14");
         arrayList.add("Maison 15");
         arrayList.add("Maison 16");
+
+        UserController test = new UserController();
+        test.getLikeByOwner();
 
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);

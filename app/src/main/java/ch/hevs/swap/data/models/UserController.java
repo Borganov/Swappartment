@@ -8,7 +8,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserController {
     private DatabaseReference mDatabase;
@@ -49,5 +51,56 @@ public class UserController {
             }
         });
         return lstapartLiked;
+    }
+
+    public void getLikeByOwner(){
+        ArrayList<String> listApartment = new ArrayList<>();
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        Query query = mDataBaseRef.child("users/" + mAuth.getCurrentUser().getUid() + "/apartmentOwned/");
+
+        query.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        listApartment.add(issue.getKey());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        for (String idApart: listApartment) {
+            Query query1 = mDataBaseRef.child("appart/" + idApart + "/Likes/").orderByChild(idApart).equalTo(idApart);
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<String> listLikes = new ArrayList<>();
+
+                    if (dataSnapshot.exists()) {
+                        // dataSnapshot is the "issue" node with all children with id 0
+                        for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                            listLikes.add(issue.getKey());
+                            System.out.println("%%%%%%%%%%%%%%" + issue.getKey());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
     }
 }
