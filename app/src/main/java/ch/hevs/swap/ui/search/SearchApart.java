@@ -140,13 +140,13 @@ public class SearchApart extends BaseActivity {
      */
     private void ListLocalities() {
 
-        FirebaseDatabase mDatabase;
+//        FirebaseDatabase mDatabase;
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance();
+//        mDatabase = FirebaseDatabase.getInstance();
 
         Query query = mDataBaseRef.child("Localities");
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
