@@ -14,13 +14,13 @@ public class AppartController {
     private FirebaseAuth mAuth;
     private String name = "Pas de nom";
 
-    public String insertNewAppart(String designation, int nbRooms, int price, String address, Long idLlocality) {
+    public String insertNewAppart(String designation, int nbRooms, int price, String address, Long idLocality) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String uid = user.getUid();
 
-        Appart appart = new Appart(designation, nbRooms, price, address, idLlocality);
+        Appart appart = new Appart(designation, nbRooms, price, address, idLocality);
         String key = mDatabase.child("appart").push().getKey();
         mDatabase.child("/appart/" + key).setValue(appart);
 

@@ -11,7 +11,7 @@ public class Appart {
     public long nbRooms;
     public long price;
     public String addressStreet;
-    public Long idLlocality;
+    public Long idLocality;
     public String comment;
     public ArrayList<String> pics;
 
@@ -19,22 +19,22 @@ public class Appart {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Appart(String designation, Integer nbRooms, Integer price, String addressStreet, Long idLlocality, String comment) {
+    public Appart(String designation, Integer nbRooms, Integer price, String addressStreet, Long idLocality, String comment) {
         this.designation = designation;
         this.nbRooms = nbRooms;
         this.price = price;
         this.addressStreet = addressStreet;
-        this.idLlocality = idLlocality;
+        this.idLocality = idLocality;
         this.comment = comment;
         pics = new ArrayList<String>();
     }
 
-    public Appart(String designation, Integer nbRooms, Integer price, String addressStreet, Long idLlocality, String comment,ArrayList<String> pics) {
+    public Appart(String designation, Integer nbRooms, Integer price, String addressStreet, Long idLocality, String comment,ArrayList<String> pics) {
         this.designation = designation;
         this.nbRooms = nbRooms;
         this.price = price;
         this.addressStreet = addressStreet;
-        this.idLlocality = idLlocality;
+        this.idLocality = idLocality;
         this.comment = comment;
         this.pics = pics;
     }
@@ -46,12 +46,12 @@ public class Appart {
         this.addressStreet = adressStreet;
     }
 
-    public Appart(String designation, long nbRooms, long price, String adressStreet, Long idLlocality) {
+    public Appart(String designation, long nbRooms, long price, String adressStreet, Long idLocality) {
         this.designation = designation;
         this.nbRooms = nbRooms;
         this.price = price;
         this.addressStreet = adressStreet;
-        this.idLlocality = idLlocality;
+        this.idLocality = idLocality;
     }
 
 }
