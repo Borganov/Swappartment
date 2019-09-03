@@ -15,7 +15,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
         android:completionThreshold="1"
-        android:dropDownHeight="150dp"
+        android:dropDownHeight="250dp"
         android:minEms="120"
         android:popupBackground="@color/colorPrimary"
         android:dropDownVerticalOffset="2dp"

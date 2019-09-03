@@ -51,12 +51,12 @@ public class SearchApart extends BaseActivity {
 
         ListLocalities();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, localities);
-        AutoCompleteTextView textView = (AutoCompleteTextView)
-                findViewById(R.id.autoComplete_Locality);
-        textView.setDropDownVerticalOffset(2);
-        textView.setAdapter(adapter);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_dropdown_item_1line, localities);
+//        AutoCompleteTextView textView = (AutoCompleteTextView)
+//                findViewById(R.id.autoComplete_Locality);
+//        textView.setDropDownVerticalOffset(2);
+//        textView.setAdapter(adapter);
 
         apparts = new ArrayList<String>();
 
@@ -139,10 +139,7 @@ public class SearchApart extends BaseActivity {
      * List all localities from CH, returning String with "LocalityName (NPA)"
      */
     private void ListLocalities() {
-
-//        FirebaseDatabase mDatabase;
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
-//        mDatabase = FirebaseDatabase.getInstance();
 
         Query query = mDataBaseRef.child("Localities");
 
@@ -156,6 +153,12 @@ public class SearchApart extends BaseActivity {
                         rst = (String) issue.child("nameLocality").getValue() + " (" + (String) issue.child("npa").getValue() + ")";
                         localities.add(rst);
                     }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchApart.this,
+                            android.R.layout.simple_dropdown_item_1line, localities);
+                    AutoCompleteTextView textView = (AutoCompleteTextView)
+                            findViewById(R.id.autoComplete_Locality);
+                    textView.setDropDownVerticalOffset(2);
+                    textView.setAdapter(adapter);
                 }
             }
 
