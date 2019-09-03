@@ -6,15 +6,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.Switch;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.apartment.addApartmentDetails;
-import ch.hevs.swap.ui.search.SearchApart;
 
 
 public class HomepageSeller extends BaseActivity {
@@ -24,57 +34,115 @@ public class HomepageSeller extends BaseActivity {
 
     private Button addAppartement;
 
+    private ArrayAdapter <String> adapter;
+    private DatabaseReference databaseReference;
+    private FirebaseUser user;
+    private String apartmentKey;
+    private FirebaseDatabase mDatabase;
+    //FIREBASE
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+
+
+    String uid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_homepage);
 
         listView=(ListView)findViewById(R.id.listview);
+        user =FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+        ArrayList<String> itemList = new ArrayList<>();
+        ArrayList<String> apartmentIdList = new ArrayList<>();
 
-        ArrayList<String> arrayList = new ArrayList<>();
-
-        arrayList.add("Maison 1");
-        arrayList.add("Maison 2");
-        arrayList.add("Maison 3");
-        arrayList.add("Maison 4");
-        arrayList.add("Maison 5");
-        arrayList.add("Maison 6");
-        arrayList.add("Maison 7");
-        arrayList.add("Maison 8");
-        arrayList.add("Maison 9");
-        arrayList.add("Maison 10");
-        arrayList.add("Maison 11");
-        arrayList.add("Maison 12");
-        arrayList.add("Maison 13");
-        arrayList.add("Maison 14");
-        arrayList.add("Maison 15");
-        arrayList.add("Maison 16");
+        //Firebase init
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
+        //get param
+        // Bundle b = getIntent().getExtras();
+        //apartmentKey = b.getString("key");
 
-        listView.setAdapter(arrayAdapter);
+        apartmentKey = null;
 
-            //Intialization Button
+        mDatabase = FirebaseDatabase.getInstance();
+        databaseReference = mDatabase.getReference("users/"+uid);
+
+
+
+        Query query = databaseReference.child("apartmentOwned");
+
+        query.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                itemList.clear();
+                apartmentIdList.clear();
+
+                // dataSnapshot is the "issue" node with all children with id 0
+
+                for (DataSnapshot childrenSnapshot:dataSnapshot.getChildren())
+                {
+
+                    String apartmentId = childrenSnapshot.getValue(String.class);
+
+                    apartmentIdList.add(apartmentId);
+
+                }
+                Query queryNameApart = mDatabase.getReference("appart");
+                queryNameApart.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(String apartId:apartmentIdList)
+                        {
+                            String apartementName = dataSnapshot.child(apartId).child("designation").getValue(String.class);
+                            itemList.add(apartementName);
+
+                        }
+
+                        adapter = new ArrayAdapter(HomepageSeller.this, android.R.layout.simple_list_item_1, itemList);
+                        listView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+
+        //Intialization Button
         addAppartement = findViewById(R.id.addAppartementFromSeller);
 
         addAppartement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addAppartment();
+
             }
         });
-        }
-
-
-        public void addAppartment() {
-            Intent intent = new Intent(this, addApartmentDetails.class);
-            startActivity(intent);
-        }
-
-    public void onBackPressed() {
-        this.startActivity(new Intent(this,HomepageSeller.class));
     }
 
+
+    public void addAppartment() {
+        Intent intent = new Intent(this, addApartmentDetails.class);
+        startActivity(intent);
     }
 
+}
