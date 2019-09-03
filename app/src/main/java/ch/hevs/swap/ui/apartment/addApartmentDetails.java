@@ -19,8 +19,9 @@ import java.util.List;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.AppartController;
+import ch.hevs.swap.ui.homepage.BaseActivity;
 
-public class addApartmentDetails extends AppCompatActivity {
+public class addApartmentDetails extends BaseActivity {
 
     //Variables
     private EditText designation;
