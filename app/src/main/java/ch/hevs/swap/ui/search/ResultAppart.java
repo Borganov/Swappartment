@@ -41,18 +41,22 @@ import ch.hevs.swap.ui.homepage.BaseActivity;
 
 public class ResultAppart extends BaseActivity {
 
-    //FIREBASE
+    //FIREBASE VARIABLES
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    //Each knot in the queue represents an apartment id
     Queue appartQueue = new Queue();
 
+    //Elements in the layout
     ImageView imgAppart;
     TextView txtAppartDesignation;
     TextView txtAppartPrice;
 
+    //ArrayList of all image ids
     ArrayList<String> appartPics;
 
+    //Current index of appartPics ArrayList
     private int index = 0;
 
     @Override
@@ -92,15 +96,15 @@ public class ResultAppart extends BaseActivity {
                         index++;
 
                     setImageViewById(appartQueue.getFirst().getInfo().getValeur(),appartPics.get(index));
-                    //imageView.setImageResource(imageRes1[index]);
                 }
 
 
 
             }
+
             public void onSwipeTop() {
 
-                //put it at end
+                //take current knot, defile it and add it to the end with file
                 Knot end = appartQueue.getFirst();
                 appartQueue.defile();
                 appartQueue.file(end);
@@ -109,15 +113,12 @@ public class ResultAppart extends BaseActivity {
             }
 
             public void onSwipeRight() {
-                String test = appartQueue.getFirst().getInfo().getValeur();
-
+                //save in database that the user is interested in the home
                 userController.addApartViewed(appartQueue.getFirst().getInfo().getValeur(),true);
+
                 appartQueue.defile();
                 if(!appartQueue.isEmpty())
-                {
                     updateFields();
-                    // ADD CODE TO SAVE HOUSE TO FAVORITES
-                }
 
                 else
                 {
@@ -126,14 +127,16 @@ public class ResultAppart extends BaseActivity {
                     txtAppartDesignation.setText("You've swiped through all houses!");
                     txtAppartPrice.setText("");
                 }
-
             }
 
             public void onSwipeLeft() {
+                //save in database that the user is not interested in the home
                 userController.addApartViewed(appartQueue.getFirst().getInfo().getValeur(),false);
                 appartQueue.defile();
+
                 if(!appartQueue.isEmpty())
                     updateFields();
+
                 else
                 {
                     imgAppart.setImageResource(R.drawable.house);
@@ -141,7 +144,6 @@ public class ResultAppart extends BaseActivity {
                     txtAppartDesignation.setText("You've swiped through all houses!");
                     txtAppartPrice.setText("");
                 }
-
             }
 
             public void onSwipeBottom() {
@@ -149,10 +151,6 @@ public class ResultAppart extends BaseActivity {
             }
 
         });
-
-
-
-
 
     };
 
@@ -169,7 +167,6 @@ public class ResultAppart extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String type;
-                    // dataSnapshot is the "issue" node with all children with id 0
                     txtAppartDesignation.setText("Nom : " + dataSnapshot.child("designation").getValue().toString());
                     txtAppartPrice.setText("Prix : " + dataSnapshot.child("price").getValue().toString());
                 }
@@ -186,7 +183,6 @@ public class ResultAppart extends BaseActivity {
         mDatabase = FirebaseDatabase.getInstance();
 
         Query queryImg = mDataBaseRef.child("imgs");
-        System.out.println("#################################### :    " + appartKey);
 
         appartPics = new ArrayList<String>();
 
@@ -195,12 +191,9 @@ public class ResultAppart extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String url;
-                    // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         url = (String) issue.getValue();
                         appartPics.add(url);
-                        System.out.println("######################################     " + url);
-
                      }
 
                     setImageViewById(appartQueue.getFirst().getInfo().getValeur(),appartPics.get(0));
@@ -232,13 +225,13 @@ public class ResultAppart extends BaseActivity {
 
                     String information = "";
 
-
                     for (DataSnapshot apart : dataSnapshot.getChildren()) {
                         information = "Name of appartment : " + dataSnapshot.child("designation").getValue().toString() + "\n" +
                                         "Address : " + dataSnapshot.child("addressStreet").getValue().toString() + "\n" +
                                         "Nb Rooms : " + dataSnapshot.child("nbRooms").getValue().toString();
                     }
 
+                    //open modal appartDetails with the information of the appartment
                     AppartDetails appartDetails = new AppartDetails(information); //parameter of AppartDetails = description of appartment
                     appartDetails.show(getSupportFragmentManager(), "Appartment Details");
                 }
@@ -250,17 +243,16 @@ public class ResultAppart extends BaseActivity {
             }
         });
 
-
     }
 
-    //Affichage de l'image
+    //show image
     private void setImageViewById(String id_appartment,String id_image) {
 
         storageReference.child("apartment/images/"+id_appartment+"/"+id_image).getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
+
                 // Use the bytes to display the image
-                System.out.println("Here I am ");
                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 imgAppart.setImageBitmap(Bitmap.createScaledBitmap(bmp, imgAppart.getWidth(),
                         imgAppart.getHeight(), false));
@@ -269,8 +261,6 @@ public class ResultAppart extends BaseActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
-                System.out.println("Here we are");
-                System.out.println(exception.getMessage());
             }
         });
 
