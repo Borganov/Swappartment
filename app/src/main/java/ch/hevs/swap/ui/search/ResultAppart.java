@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -47,7 +48,8 @@ public class ResultAppart extends BaseActivity {
     Queue appartQueue = new Queue();
 
     ImageView imgAppart;
-    TextView txtAppartId;
+    TextView txtAppartDesignation;
+    TextView txtAppartPrice;
 
     ArrayList<String> appartPics;
 
@@ -73,8 +75,8 @@ public class ResultAppart extends BaseActivity {
         imgAppart.setTag((Integer)999);
 
 
-        txtAppartId = findViewById(R.id.txtAppartId);
-
+        txtAppartDesignation = findViewById(R.id.txtAppartDesignation);
+        txtAppartPrice = findViewById(R.id.txtAppartPrice);
 
         updateFields();
 
@@ -98,7 +100,12 @@ public class ResultAppart extends BaseActivity {
             }
             public void onSwipeTop() {
 
-                Toast.makeText(ResultAppart.this, "top", Toast.LENGTH_SHORT).show();
+                //put it at end
+                Knot end = appartQueue.getFirst();
+                appartQueue.defile();
+                appartQueue.file(end);
+                updateFields();
+
             }
 
             public void onSwipeRight() {
@@ -116,11 +123,10 @@ public class ResultAppart extends BaseActivity {
                 {
                     imgAppart.setImageResource(R.drawable.house);
                     imgAppart.setTag(R.drawable.house);
-                    txtAppartId.setText("You've swiped through all houses!");
+                    txtAppartDesignation.setText("You've swiped through all houses!");
+                    txtAppartPrice.setText("");
                 }
 
-
-                Toast.makeText(ResultAppart.this, "right", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeLeft() {
@@ -132,16 +138,13 @@ public class ResultAppart extends BaseActivity {
                 {
                     imgAppart.setImageResource(R.drawable.house);
                     imgAppart.setTag(R.drawable.house);
-                    txtAppartId.setText("You've swiped through all houses!");
+                    txtAppartDesignation.setText("You've swiped through all houses!");
+                    txtAppartPrice.setText("");
                 }
 
-
-                Toast.makeText(ResultAppart.this, "left", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeBottom() {
-                Toast.makeText(ResultAppart.this, "bottom", Toast.LENGTH_SHORT).show();
-
                 openDialog();
             }
 
@@ -167,7 +170,8 @@ public class ResultAppart extends BaseActivity {
                 if (dataSnapshot.exists()) {
                     String type;
                     // dataSnapshot is the "issue" node with all children with id 0
-                    txtAppartId.setText(dataSnapshot.child("designation").getValue().toString());
+                    txtAppartDesignation.setText("Nom : " + dataSnapshot.child("designation").getValue().toString());
+                    txtAppartPrice.setText("Prix : " + dataSnapshot.child("price").getValue().toString());
                 }
             }
 
@@ -197,7 +201,7 @@ public class ResultAppart extends BaseActivity {
                         appartPics.add(url);
                         System.out.println("######################################     " + url);
 
-                    }
+                     }
 
                     setImageViewById(appartQueue.getFirst().getInfo().getValeur(),appartPics.get(0));
                 }
@@ -212,8 +216,41 @@ public class ResultAppart extends BaseActivity {
     }
 
     public void openDialog() {
-        AppartDetails appartDetails = new AppartDetails("test"); //parameter of AppartDetails = description of appartment
-        appartDetails.show(getSupportFragmentManager(), "Appartment Details");
+
+        String appartKey = appartQueue.getFirst().getInfo().getValeur();
+
+        FirebaseDatabase mDatabase;
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference("appart/");
+        mDatabase = FirebaseDatabase.getInstance();
+
+        Query queryDesignation = mDataBaseRef.child(appartKey);
+
+        queryDesignation.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    String information = "";
+
+
+                    for (DataSnapshot apart : dataSnapshot.getChildren()) {
+                        information = "Name of appartment : " + dataSnapshot.child("designation").getValue().toString() + "\n" +
+                                        "Address : " + dataSnapshot.child("addressStreet").getValue().toString() + "\n" +
+                                        "Nb Rooms : " + dataSnapshot.child("nbRooms").getValue().toString();
+                    }
+
+                    AppartDetails appartDetails = new AppartDetails(information); //parameter of AppartDetails = description of appartment
+                    appartDetails.show(getSupportFragmentManager(), "Appartment Details");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     //Affichage de l'image
