@@ -3,6 +3,7 @@ package ch.hevs.swap.ui.search;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -53,12 +54,12 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
         Button mButton = findViewById(R.id.btnFavoris);
         ListLocalities();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, localities);
-        AutoCompleteTextView textView = (AutoCompleteTextView)
-                findViewById(R.id.autoComplete_Locality);
-        textView.setDropDownVerticalOffset(2);
-        textView.setAdapter(adapter);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_dropdown_item_1line, localities);
+//        AutoCompleteTextView textView = (AutoCompleteTextView)
+//                findViewById(R.id.autoComplete_Locality);
+//        textView.setDropDownVerticalOffset(2);
+//        textView.setAdapter(adapter);
 
 
         mButton.setOnClickListener(this);
@@ -131,6 +132,13 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
                     intent.putStringArrayListExtra("key", apparts);
                     startActivity(intent);
                 }
+                else{
+                    Toast toast = Toast.makeText(SearchApart.this,"Aucun appartement pour cette localité ", Toast.LENGTH_LONG);
+                    View root = findViewById(android.R.id.content);
+                    int yOffset = Math.max(0, root.getHeight() - toast.getYOffset());
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                    toast.show();
+                }
             }
 
             @Override
@@ -144,14 +152,11 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
      * List all localities from CH, returning String with "LocalityName (NPA)"
      */
     private void ListLocalities() {
-
-        FirebaseDatabase mDatabase;
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance();
 
         Query query = mDataBaseRef.child("Localities");
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -161,6 +166,12 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
                         rst = (String) issue.child("nameLocality").getValue() + " (" + (String) issue.child("npa").getValue() + ")";
                         localities.add(rst);
                     }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchApart.this,
+                            android.R.layout.simple_dropdown_item_1line, localities);
+                    AutoCompleteTextView textView = (AutoCompleteTextView)
+                            findViewById(R.id.autoComplete_Locality);
+                    textView.setDropDownVerticalOffset(2);
+                    textView.setAdapter(adapter);
                 }
             }
 
