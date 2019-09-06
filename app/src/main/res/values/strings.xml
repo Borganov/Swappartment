@@ -40,5 +40,6 @@
 
     <string name="buyer">"Acheteur"</string>
     <string name="seller">"Vendeur"</string>
+    <string name="notification">"Vos notifications :"</string>
 
 </resources>
