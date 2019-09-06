@@ -12,7 +12,7 @@
     <string name="login_failed">"Login failed"</string>
 
 
-    <string name="title_activity_home_page">HomePage</string>
+    <string name="title_activity_home_page">SwapApartment</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="HomePage_Login">Connectes-toi !</string>
     <string name="HomePage_Create_Login">Crée toi un compte !</string>

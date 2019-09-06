@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,8 +32,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.app_bar_switch);
         item.setActionView(R.layout.switch_item);
 
+        //Enlever le titre
         getSupportActionBar().setTitle("");
-
 
         Switch mySwitch = item.getActionView().findViewById(R.id.switch_item);
 
@@ -39,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         gv = (GlobalVariable) getApplication();
         mySwitch.setChecked(gv.isBuyer());
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(gv.color));
 
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -50,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     gv.setBuyer(true);
                     Intent homepageSeller = new Intent (BaseActivity.this, HomepageSeller.class);
                     startActivity(homepageSeller);
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.RED));
+                    gv.setColor(0xFF34495E);
                     finish();
 
 
@@ -59,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     gv.setBuyer(false);
                     Intent homepageBuyer = new Intent (BaseActivity.this, SearchApart.class);
                     startActivity(homepageBuyer);
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.YELLOW));
+                    gv.setColor(0xFF5B2C6F);
                     finish();
                 }
             }
