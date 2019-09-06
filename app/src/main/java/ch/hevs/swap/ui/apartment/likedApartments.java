@@ -65,7 +65,6 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         appartUID = (String) issue.getKey();
-                        //System.out.println("################" + appartUID + " " + issue.getValue().toString());
                         if(issue.child("like").getValue().toString().equals("true"))
                         {
                             apartLikedId.add(issue.child("AppId").getValue().toString());

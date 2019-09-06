@@ -79,30 +79,33 @@ public class addApartmentDetails extends BaseActivity {
         cancelButton = findViewById(R.id.cancelButton);
         addButton.setOnClickListener(View -> saveChanges(
                 designation.getText().toString(),
-                Integer.parseInt(nbRooms.getText().toString()),
-                Integer.parseInt(price.getText().toString()),
+                nbRooms.getText().toString(),
+                price.getText().toString(),
                 address.getText().toString(),
                 locality.getText().toString()
         ));
     }
 
     //sauvegarde des entrées de l'utilisateur
-    private void saveChanges(String designation, int nbRooms, int price, String address, String locality){
+    private void saveChanges(String designation, String nbRooms, String price, String address, String locality){
 
-        if(designation==null || Integer.toString(nbRooms)==null || Integer.toString(price)==null || address==null || locality==null){
+        if(designation.isEmpty() || nbRooms.isEmpty() || price.isEmpty() || address.isEmpty() || locality.isEmpty()){
             Toast.makeText(addApartmentDetails.this,"Un champ est vide",
                     Toast.LENGTH_SHORT).show();
-            return;
         }
 
-        Long localityID = new Long(localities.indexOf(locality));
 
-        String key = appartController.insertNewAppart(designation, nbRooms, price, address, localityID);
+        else
+        {
+            Long localityID = new Long(localities.indexOf(locality));
 
-        // changement d'activité
-        Intent intent = new Intent(this, addApartmentImages.class);
-        intent.putExtra("key", key );
-        startActivity(intent);
+            String key = appartController.insertNewAppart(designation, Integer.parseInt(nbRooms), Integer.parseInt(price), address, localityID);
+
+            // changement d'activité
+            Intent intent = new Intent(this, addApartmentImages.class);
+            intent.putExtra("key", key );
+            startActivity(intent);
+        }
 
     }
 
@@ -124,7 +127,6 @@ public class addApartmentDetails extends BaseActivity {
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         rst = (String) issue.child("nameLocality").getValue() + " (" + (String) issue.child("npa").getValue() + ")";
-                        System.out.println(rst);
                         response.add(rst);
                     }
                 }

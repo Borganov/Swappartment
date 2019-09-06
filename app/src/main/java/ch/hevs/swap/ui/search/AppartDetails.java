@@ -18,7 +18,7 @@ public class AppartDetails extends AppCompatDialogFragment {
     }
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Appartment Details")
+        builder.setTitle("Détail de l'appartement")
                 .setMessage(details)
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override

@@ -89,7 +89,7 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
                     search(idLocality);
                 }
                 else{
-                    Toast.makeText(SearchApart.this,"Veuillez introduire une localité", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SearchApart.this,"Choisissez une localité...", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -132,7 +132,7 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
         Query query = mDataBaseRef.child("appart").orderByChild("idLocality").equalTo(idLocality);
        // Query query = mDataBaseRef.child("appart");
 
-        Toast.makeText(SearchApart.this,"Recherche en cours pour " + idLocality, Toast.LENGTH_LONG).show();
+        Toast.makeText(SearchApart.this,"Recherche en cours ...", Toast.LENGTH_LONG).show();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -180,7 +180,7 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
 
                 }
                 else{
-                    Toast toast = Toast.makeText(SearchApart.this, "getResources().getText(R.string.noAppartForLocality)", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(SearchApart.this, getResources().getText(R.string.noAppartForLocality), Toast.LENGTH_LONG);
                     View root = findViewById(android.R.id.content);
                     int yOffset = Math.max(0, root.getHeight() - toast.getYOffset());
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, yOffset);

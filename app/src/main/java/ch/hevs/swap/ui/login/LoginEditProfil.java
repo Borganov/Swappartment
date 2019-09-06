@@ -112,7 +112,7 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
 
         String email = mEmailField.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailField.setError("Required.");
+            mEmailField.setError("Champ obligatoire.");
             valid = false;
         } else {
             mEmailField.setError(null);
@@ -120,7 +120,7 @@ public class LoginEditProfil extends AppCompatActivity implements View.OnClickLi
 
         String password = mPasswordField.getText().toString();
         if (TextUtils.isEmpty(password) || password.length() < 5) {
-            mPasswordField.setError("More 5 characters");
+            mPasswordField.setError("Ce champ doit faire plus de 5 caractères.");
             valid = false;
         } else {
             mPasswordField.setError(null);

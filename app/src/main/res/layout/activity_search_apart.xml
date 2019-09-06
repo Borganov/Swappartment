@@ -33,7 +33,7 @@
         android:completionThreshold="1"
         android:dropDownHeight="200dp"
         android:dropDownVerticalOffset="2dp"
-        android:hint="Please enter a locality"
+        android:hint="Choisissez une localité"
         android:minEms="120"
         android:popupBackground="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"

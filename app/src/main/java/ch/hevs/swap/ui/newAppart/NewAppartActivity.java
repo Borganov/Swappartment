@@ -74,7 +74,7 @@ public class NewAppartActivity extends BaseActivity {
 
         insertNewAppart(designation, nbRooms, price, address);
         // Disable button so there are no multi-posts
-        Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Téléchargement...", Toast.LENGTH_SHORT).show();
 
     }
 

@@ -129,7 +129,7 @@ public class ResultAppart extends BaseActivity {
                 {
                     imgAppart.setImageResource(R.drawable.house);
                     imgAppart.setTag(R.drawable.house);
-                    txtAppartDesignation.setText("You've swiped through all houses!");
+                    txtAppartDesignation.setText("Vous avez parcouru tous les biens!");
                     txtAppartPrice.setText("");
                 }
             }
@@ -146,7 +146,7 @@ public class ResultAppart extends BaseActivity {
                 {
                     imgAppart.setImageResource(R.drawable.house);
                     imgAppart.setTag(R.drawable.house);
-                    txtAppartDesignation.setText("You've swiped through all houses!");
+                    txtAppartDesignation.setText("Vous avez parcouru tous les biens!");
                     txtAppartPrice.setText("");
                 }
             }
@@ -236,14 +236,14 @@ public class ResultAppart extends BaseActivity {
                     String information = "";
 
                     for (DataSnapshot apart : dataSnapshot.getChildren()) {
-                        information = "Name of appartment : " + dataSnapshot.child("designation").getValue().toString() + "\n" +
-                                        "Address : " + dataSnapshot.child("addressStreet").getValue().toString() + "\n" +
-                                        "Nb Rooms : " + dataSnapshot.child("nbRooms").getValue().toString();
+                        information = "Nom de l'appartement : " + dataSnapshot.child("designation").getValue().toString() + "\n" +
+                                        "Adresse : " + dataSnapshot.child("addressStreet").getValue().toString() + "\n" +
+                                        "Nombre de pièces : " + dataSnapshot.child("nbRooms").getValue().toString();
                     }
 
                     //open modal appartDetails with the information of the appartment
                     AppartDetails appartDetails = new AppartDetails(information); //parameter of AppartDetails = description of appartment
-                    appartDetails.show(getSupportFragmentManager(), "Appartment Details");
+                    appartDetails.show(getSupportFragmentManager(), "Détail de l'appartement");
                 }
             }
 

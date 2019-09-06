@@ -118,7 +118,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                                 startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(HomePage.this,"Try Again",
+                            Toast.makeText(HomePage.this,"Veuillez réessayer.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -148,7 +148,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         String email = mEmailField.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailField.setError("Required.");
+            mEmailField.setError("Champ obligatoire.");
             valid = false;
         } else {
             mEmailField.setError(null);
@@ -156,7 +156,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
         String password = mPasswordField.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordField.setError("Required.");
+            mPasswordField.setError("Champ obligatoire.");
             valid = false;
         } else {
             mPasswordField.setError(null);

@@ -56,13 +56,6 @@ public class SellerApartmentDetails extends BaseActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-        //String url = "https://firebasestorage.googleapis.com/v0/b/swap-appartements.appspot.com/o/apartment%2Fimages%2F1%2Fc901f9e9-3167-4b62-a47f-2d36a404c013?alt=media&token=a33c560f-512b-4e33-82fe-5498a9f2dc9c";
-        //System.out.println("--------------------"+url);
-       // String url = "https://www.presse-citron.net/wordpress_prod/wp-content/uploads/2018/11/meilleure-banque-image.jpg";
-
-        //Picasso.with(this).load(url).into(imageView);
-
-
         btnGetImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

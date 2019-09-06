@@ -7,19 +7,6 @@
     tools:context=".ui.apartment.addApartmentImages">
 
     <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="151dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/delete"
-        app:layout_constraintBottom_toTopOf="@+id/btnDone"
-        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
-        app:layout_constraintHorizontal_bias="0.325"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/btnDone"
         android:layout_width="347dp"
         android:layout_height="46dp"
@@ -33,9 +20,9 @@
 
     <Button
         android:id="@+id/btnAdd"
-        android:layout_width="151dp"
-        android:layout_height="67dp"
-        android:layout_marginEnd="36dp"
+        android:layout_width="346dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         android:text="@string/add"
         app:layout_constraintBottom_toTopOf="@+id/btnDone"

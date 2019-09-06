@@ -51,7 +51,7 @@ public class LoginForgetPassword extends AppCompatActivity  implements View.OnCl
     private void onSendLinkClicked() {
         String email = mEmailField.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailField.setError("Email must not be empty.");
+            mEmailField.setError("Le champ email ne doit pas être vide.");
 
             return;
         }

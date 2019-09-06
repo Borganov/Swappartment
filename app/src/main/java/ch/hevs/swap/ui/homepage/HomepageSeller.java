@@ -66,7 +66,7 @@ public class HomepageSeller extends BaseActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         gv = (GlobalVariable) getApplication();
-        gv.setColor(0xFF5B2C6F);
+        gv.setColor(0xFF34495E);
 
         //get param
         // Bundle b = getIntent().getExtras();
@@ -103,8 +103,6 @@ public class HomepageSeller extends BaseActivity {
                     String classinfo = childrenSnapshot.getValue().getClass().toString();
                     HashMap<String,String> AppInfo = (HashMap<String, String>) childrenSnapshot.getValue();
 
-                  //  String apartmentId = childrenSnapshot.getValue().toString();
-
                     apartmentIdList.add(AppInfo.get("AppId"));
 
                 }
@@ -136,12 +134,6 @@ public class HomepageSeller extends BaseActivity {
 
             }
         });
-
-
-
-
-
-
 
         //Intialization Button
         addAppartement = findViewById(R.id.addAppartementFromSeller);

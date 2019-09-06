@@ -53,7 +53,7 @@ public class addApartmentImages extends BaseActivity {
 
 
     //VARIABLES
-    private Button btnDelete, btnAdd, btnDone;
+    private Button  btnAdd, btnDone;
     private Uri filepath;
     private String apartmentKey;
     private ImageView imageView;
@@ -78,7 +78,6 @@ public class addApartmentImages extends BaseActivity {
         storageReference = storage.getReference();
 
         //Init view
-        btnDelete = (Button)findViewById(R.id.btnDelete);
         btnAdd = (Button)findViewById(R.id.btnAdd);
         btnDone = (Button)findViewById(R.id.btnDone);
         imageView= findViewById(R.id.imageView);
@@ -206,7 +205,7 @@ public class addApartmentImages extends BaseActivity {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                    progressDialog.setMessage("Téléchargement : "+(int)progress+"%");
                 }
             });
 
@@ -218,7 +217,7 @@ public class addApartmentImages extends BaseActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Choisir une image"), PICK_IMAGE_REQUEST);
 
     }
 
@@ -245,7 +244,6 @@ public class addApartmentImages extends BaseActivity {
             @Override
             public void onSuccess(byte[] bytes) {
                 // Use the bytes to display the image
-                System.out.println("Here I am ");
                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(),
                         imageView.getHeight(), false));
@@ -254,7 +252,6 @@ public class addApartmentImages extends BaseActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
-                System.out.println("Here we are");
                 System.out.println(exception.getMessage());
             }
         });
