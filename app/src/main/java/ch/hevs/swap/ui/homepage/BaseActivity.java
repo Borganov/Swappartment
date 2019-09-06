@@ -1,6 +1,9 @@
 package ch.hevs.swap.ui.homepage;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +30,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.app_bar_switch);
         item.setActionView(R.layout.switch_item);
 
+        getSupportActionBar().setTitle("");
+
+
         Switch mySwitch = item.getActionView().findViewById(R.id.switch_item);
 
         mAuth = FirebaseAuth.getInstance();
@@ -44,9 +50,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                     gv.setBuyer(true);
                     Intent homepageSeller = new Intent (BaseActivity.this, HomepageSeller.class);
                     startActivity(homepageSeller);
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.RED));
                     finish();
-
-
 
 
                 } else {
@@ -54,6 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     gv.setBuyer(false);
                     Intent homepageBuyer = new Intent (BaseActivity.this, SearchApart.class);
                     startActivity(homepageBuyer);
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.YELLOW));
                     finish();
                 }
             }
