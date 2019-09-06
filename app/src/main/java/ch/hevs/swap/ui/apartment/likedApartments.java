@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.Appart;
@@ -35,13 +36,15 @@ import ch.hevs.swap.ui.search.SearchApart;
 public class likedApartments extends BaseActivity implements AdapterView.OnItemClickListener {
     private ListView mListView;
     private ArrayList<String> apartLiked = new ArrayList<>();
+    HashMap<String,String> itemList = new HashMap<>();
+
     private UserController userController = new UserController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liked_apartments);
         mListView = (ListView) findViewById(R.id.listView);
-
+        ArrayList<String> apartLikedId = new ArrayList<>();
         //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
         //Contenant une TextView avec comme identifiant "@android:id/text1"
 
@@ -62,17 +65,39 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         appartUID = (String) issue.getKey();
                         //System.out.println("################" + appartUID + " " + issue.getValue().toString());
-                        if(issue.getValue().toString().equals("true"))
+                        if(issue.child("like").getValue().toString().equals("true"))
                         {
-                            apartLiked.add(issue.getKey());
+                            apartLikedId.add(issue.child("AppId").getValue().toString());
                             //apartLiked.add(new AppartController().GetNameApp(appartUID));
                         }
                     }
-                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(likedApartments.this,
-                            android.R.layout.simple_list_item_1, apartLiked);
-                    mListView.setAdapter(adapter);
 
-                    mListView.setOnItemClickListener(likedApartments.this::onItemClick);
+                    Query queryNameApart = FirebaseDatabase.getInstance().getReference("appart");
+                    queryNameApart.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(String apartId:apartLikedId)
+                            {
+                                String apartementName = dataSnapshot.child(apartId).child("designation").getValue(String.class);
+                                itemList.put(apartId,apartementName);
+                                apartLiked.add(apartementName);
+
+                            }
+
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(likedApartments.this,
+                                    android.R.layout.simple_list_item_1, apartLiked);
+                            mListView.setAdapter(adapter);
+
+                            mListView.setOnItemClickListener(likedApartments.this::onItemClick);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
             }
 

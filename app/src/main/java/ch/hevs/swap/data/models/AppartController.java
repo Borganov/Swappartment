@@ -25,7 +25,7 @@ public class AppartController {
         mDatabase.child("/appart/" + key).setValue(appart);
 
         String key2 = mDatabase.child("/users/"+uid+"/apartmentOwned").push().getKey();
-        mDatabase.child("/users/"+uid+"/apartmentOwned/"+key2).setValue(key);
+        mDatabase.child("/users/"+uid+"/apartmentOwned/"+key2+"/AppId").setValue(key);
 
         return key;
     }

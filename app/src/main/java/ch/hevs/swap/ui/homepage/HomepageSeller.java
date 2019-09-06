@@ -22,6 +22,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.apartment.addApartmentDetails;
@@ -87,9 +88,12 @@ public class HomepageSeller extends BaseActivity {
                 for (DataSnapshot childrenSnapshot:dataSnapshot.getChildren())
                 {
 
-                    String apartmentId = childrenSnapshot.getValue(String.class);
+                    String classinfo = childrenSnapshot.getValue().getClass().toString();
+                    HashMap<String,String> AppInfo = (HashMap<String, String>) childrenSnapshot.getValue();
 
-                    apartmentIdList.add(apartmentId);
+                  //  String apartmentId = childrenSnapshot.getValue().toString();
+
+                    apartmentIdList.add(AppInfo.get("AppId"));
 
                 }
                 Query queryNameApart = mDatabase.getReference("appart");

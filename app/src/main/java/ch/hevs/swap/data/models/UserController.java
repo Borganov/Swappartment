@@ -20,7 +20,7 @@ public class UserController {
     final ArrayList<String> lstapartLiked = new ArrayList<>();
 
     public UserController() {
-        apartLiked();
+        //apartLiked();
     }
     public ArrayList<String> getLstapartLiked() {
         return lstapartLiked;
@@ -30,7 +30,10 @@ public class UserController {
     {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        mDatabase.child("users/"+ mAuth.getCurrentUser().getUid()+"/apartViewed/" + uidApp).setValue(like);
+        String key = mDatabase.child("users/" + mAuth.getCurrentUser().getUid()+"/apartViewed").push().getKey();
+
+        mDatabase.child("users/"+ mAuth.getCurrentUser().getUid()+"/apartViewed/" + key + "/AppId").setValue(uidApp);
+        mDatabase.child("users/"+ mAuth.getCurrentUser().getUid()+"/apartViewed/" + key + "/like").setValue(like);
         // usercon.AddApartViewed(appartQueue.getFirst().getInfo().getValeur(),true);
     }
 
