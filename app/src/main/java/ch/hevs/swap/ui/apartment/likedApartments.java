@@ -110,7 +110,7 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
     }
 
     public void onBackPressed() {
-        this.startActivity(new Intent(this, HomepageBuyer.class));
+        this.startActivity(new Intent(this, SearchApart.class));
     }
 
     @Override
@@ -184,4 +184,5 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
         });
 
     }
+
 }
