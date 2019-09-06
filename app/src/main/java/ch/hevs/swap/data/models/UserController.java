@@ -37,38 +37,12 @@ public class UserController {
         // usercon.AddApartViewed(appartQueue.getFirst().getInfo().getValeur(),true);
     }
 
-    public  void addMessage(String uidApp) {
+    public  void addMessage(String uidApp, String SellerApp) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-
-        mAuth = FirebaseAuth.getInstance();
-
-
-        mDatabase.child("users").addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String seller = "Failed";
-                        for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                            //seller = dataSnapshot.getValue(String.class);
-
-
-                        }
-
-                        System.out.println("#tttt#################################" + dataSnapshot.getValue());
-                        String key = mDatabase.child("/users/" + seller + "/notifications").push().getKey();
-                        mDatabase.child("users/" + seller + "/notifications/" + key + "/AppId").setValue(uidApp);
-                        mDatabase.child("users/" + seller + "/notifications/" + key + "/BuyerId").setValue(mAuth.getCurrentUser().getUid());
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
+        String key = mDatabase.child("/users/" + SellerApp + "/notifications").push().getKey();
+        mDatabase.child("users/" + SellerApp + "/notifications/" + key + "/AppId").setValue(uidApp);
+        mDatabase.child("users/" + SellerApp + "/notifications/" + key + "/BuyerId").setValue(mAuth.getCurrentUser().getUid());
 
     }
 

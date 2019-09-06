@@ -37,6 +37,7 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
     private ListView mListView;
     private ArrayList<String> apartLiked = new ArrayList<>();
     ArrayList<String> apartLikedId = new ArrayList<>();
+    int index = 0;
 
     private UserController userController = new UserController();
     @Override
@@ -124,12 +125,13 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
         ArrayList<String> users = new ArrayList<>();
         Query query = mDatabase.child("users");
         String theapartLiked = apartLikedId.get(position);
-
+        index = 0;
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                users.clear();
                 if (dataSnapshot.exists()) {
                     String rst;
                     // dataSnapshot is the "issue" node with all children with id 0
@@ -144,22 +146,25 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
-                                    String rst;
-                                    int index = 0;
+                                    String rst = "noId";
+
                                     // dataSnapshot is the "issue" node with all children with id 0
                                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                                         rst = (String) issue.child("AppId").getValue();
-                                        if(((String) issue.child("AppId").getValue()).contains(theapartLiked) && index < 1)
-                                        {
-                                            index++;
-                                            String key = mDatabase.child("/users/" + user + "/notifications").push().getKey();
-                                            mDatabase.child("users/" + user + "/notifications/" + key + "/AppId").setValue(theapartLiked);
-                                            mDatabase.child("users/" + user + "/notifications/" + key + "/BuyerId").setValue(mAuth.getCurrentUser().getUid());
-
+                                        if(rst != null) {
+                                            if (((String) issue.child("AppId").getValue()).contains(theapartLiked) && index < 1) {
+                                                userController.addMessage(theapartLiked,user);
+                                                index = 1;
+                                            }
                                         }
-
+                                        if(index==1)
+                                            break;
                                     }
+                                    if(index==1)
+                                        return;
                                 }
+                                if(index==1)
+                                    return;
                             }
 
                             @Override
@@ -168,6 +173,9 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
                             }
                         });
                     }
+                    if(index==1)
+                        return;
+
                 }
             }
             @Override
