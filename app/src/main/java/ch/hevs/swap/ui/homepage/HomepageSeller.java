@@ -26,6 +26,8 @@ import java.util.HashMap;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.apartment.addApartmentDetails;
+import ch.hevs.swap.ui.message.MessageDetails;
+import ch.hevs.swap.ui.message.MessageList;
 
 
 public class HomepageSeller extends BaseActivity {
@@ -34,6 +36,8 @@ public class HomepageSeller extends BaseActivity {
     ListView listView;
 
     private Button addAppartement;
+
+    private Button notifications;
 
     private ArrayAdapter <String> adapter;
     private DatabaseReference databaseReference;
@@ -72,7 +76,14 @@ public class HomepageSeller extends BaseActivity {
         mDatabase = FirebaseDatabase.getInstance();
         databaseReference = mDatabase.getReference("users/"+uid);
 
+        notifications = (Button)findViewById(R.id.notificationButton);
 
+        notifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notif();
+            }
+        });
 
         Query query = databaseReference.child("apartmentOwned");
 
@@ -143,6 +154,10 @@ public class HomepageSeller extends BaseActivity {
         });
     }
 
+    public void notif(){
+        Intent intent = new Intent(this, MessageList.class);
+        startActivity(intent);
+    }
 
     public void addAppartment() {
         Intent intent = new Intent(this, addApartmentDetails.class);
