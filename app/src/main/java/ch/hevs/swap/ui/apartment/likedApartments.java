@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.Appart;
@@ -35,6 +36,8 @@ import ch.hevs.swap.ui.search.SearchApart;
 public class likedApartments extends BaseActivity implements AdapterView.OnItemClickListener {
     private ListView mListView;
     private ArrayList<String> apartLiked = new ArrayList<>();
+    ArrayList<String> apartLikedId = new ArrayList<>();
+
     private UserController userController = new UserController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +65,39 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         appartUID = (String) issue.getKey();
                         //System.out.println("################" + appartUID + " " + issue.getValue().toString());
-                        if(issue.getValue().toString().equals("true"))
+                        if(issue.child("like").getValue().toString().equals("true"))
                         {
-                            apartLiked.add(issue.getKey());
+                            apartLikedId.add(issue.child("AppId").getValue().toString());
                             //apartLiked.add(new AppartController().GetNameApp(appartUID));
                         }
                     }
-                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(likedApartments.this,
-                            android.R.layout.simple_list_item_1, apartLiked);
-                    mListView.setAdapter(adapter);
 
-                    mListView.setOnItemClickListener(likedApartments.this::onItemClick);
+                    Query queryNameApart = FirebaseDatabase.getInstance().getReference("appart");
+                    queryNameApart.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(String apartId:apartLikedId)
+                            {
+                                String apartementName = dataSnapshot.child(apartId).child("designation").getValue(String.class);
+
+                                apartLiked.add(apartementName);
+
+                            }
+
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(likedApartments.this,
+                                    android.R.layout.simple_list_item_1, apartLiked);
+                            mListView.setAdapter(adapter);
+
+                            mListView.setOnItemClickListener(likedApartments.this::onItemClick);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
             }
 
@@ -98,7 +123,9 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
         mAuth = FirebaseAuth.getInstance();
         ArrayList<String> users = new ArrayList<>();
         Query query = mDatabase.child("users");
-        String theapartLiked = apartLiked.get(position);
+        String theapartLiked = apartLikedId.get(position);
+
+
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -121,8 +148,8 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
                                     int index = 0;
                                     // dataSnapshot is the "issue" node with all children with id 0
                                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                                        rst = (String) issue.getValue();
-                                        if(((String) issue.getValue()).contains(theapartLiked) && index < 1)
+                                        rst = (String) issue.child("AppId").getValue();
+                                        if(((String) issue.child("AppId").getValue()).contains(theapartLiked) && index < 1)
                                         {
                                             index++;
                                             String key = mDatabase.child("/users/" + user + "/notifications").push().getKey();
