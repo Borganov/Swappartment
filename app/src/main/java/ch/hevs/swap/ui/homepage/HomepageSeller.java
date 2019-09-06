@@ -34,7 +34,7 @@ public class HomepageSeller extends BaseActivity {
 
 
     ListView listView;
-
+    GlobalVariable gv;
     private Button addAppartement;
 
     private Button notifications;
@@ -65,7 +65,8 @@ public class HomepageSeller extends BaseActivity {
         //Firebase init
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
+        gv = (GlobalVariable) getApplication();
+        gv.setColor(0xFF5B2C6F);
 
         //get param
         // Bundle b = getIntent().getExtras();

@@ -73,7 +73,7 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
 
         gv = (GlobalVariable) getApplication();
         gv.setColor(0xFF5B2C6F);
-        
+
         mButton.setOnClickListener(this);
 
         apparts = new ArrayList<String>();
