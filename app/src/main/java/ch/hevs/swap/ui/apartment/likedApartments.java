@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -16,26 +20,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 import ch.hevs.swap.R;
+import ch.hevs.swap.data.models.Appart;
 import ch.hevs.swap.data.models.AppartController;
 import ch.hevs.swap.data.models.UserController;
 import ch.hevs.swap.ui.homepage.BaseActivity;
 import ch.hevs.swap.ui.homepage.HomepageBuyer;
 import ch.hevs.swap.ui.homepage.HomepageSeller;
+import ch.hevs.swap.ui.search.SearchApart;
 
-public class likedApartments extends BaseActivity {
+public class likedApartments extends BaseActivity implements AdapterView.OnItemClickListener {
     private ListView mListView;
     private ArrayList<String> apartLiked = new ArrayList<>();
     private UserController userController = new UserController();
-    private String[] prenoms = new String[]{
-            "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
-            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
-            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
-            "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
-            "Yann", "Zoé"
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +61,7 @@ public class likedApartments extends BaseActivity {
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         appartUID = (String) issue.getKey();
-                        System.out.println("################" + appartUID + " " + issue.getValue().toString());
+                        //System.out.println("################" + appartUID + " " + issue.getValue().toString());
                         if(issue.getValue().toString().equals("true"))
                         {
                             apartLiked.add(issue.getKey());
@@ -71,6 +71,8 @@ public class likedApartments extends BaseActivity {
                     final ArrayAdapter<String> adapter = new ArrayAdapter<String>(likedApartments.this,
                             android.R.layout.simple_list_item_1, apartLiked);
                     mListView.setAdapter(adapter);
+
+                    mListView.setOnItemClickListener(likedApartments.this::onItemClick);
                 }
             }
 
@@ -84,5 +86,68 @@ public class likedApartments extends BaseActivity {
 
     public void onBackPressed() {
         this.startActivity(new Intent(this, HomepageBuyer.class));
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(likedApartments.this,"Vous avez fait une demande pour l'appartement :  " + apartLiked.get(position), Toast.LENGTH_LONG).show();
+       // userController.addMessage(apartLiked.get(position));
+        DatabaseReference mDatabase;
+        FirebaseAuth mAuth;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        ArrayList<String> users = new ArrayList<>();
+        Query query = mDatabase.child("users");
+        String theapartLiked = apartLiked.get(position);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    String rst;
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        rst = (String) issue.getKey();
+                        users.add(rst);
+                    }
+
+                    for (String user : users) {
+                        Query query1 = mDatabase.child("users/" + user + "/apartmentOwned");
+                        query1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    String rst;
+                                    int index = 0;
+                                    // dataSnapshot is the "issue" node with all children with id 0
+                                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                        rst = (String) issue.getValue();
+                                        if(((String) issue.getValue()).contains(theapartLiked) && index < 1)
+                                        {
+                                            index++;
+                                            String key = mDatabase.child("/users/" + user + "/notifications").push().getKey();
+                                            mDatabase.child("users/" + user + "/notifications/" + key + "/AppId").setValue(theapartLiked);
+                                            mDatabase.child("users/" + user + "/notifications/" + key + "/BuyerId").setValue(mAuth.getCurrentUser().getUid());
+
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
