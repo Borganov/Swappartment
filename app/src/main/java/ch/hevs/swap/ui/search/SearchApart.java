@@ -35,6 +35,7 @@ import java.util.List;
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.apartment.likedApartments;
 import ch.hevs.swap.ui.homepage.BaseActivity;
+import ch.hevs.swap.ui.homepage.GlobalVariable;
 import ch.hevs.swap.ui.homepage.HomepageBuyer;
 
 public class SearchApart extends BaseActivity implements View.OnClickListener {
@@ -48,6 +49,7 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
     String locality;
     Long idLocality;
     String idApartment;
+    GlobalVariable gv;
 
     private FirebaseAuth mAuth;
 
@@ -69,7 +71,9 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
 //        textView.setDropDownVerticalOffset(2);
 //        textView.setAdapter(adapter);
 
-
+        gv = (GlobalVariable) getApplication();
+        gv.setColor(0xFF5B2C6F);
+        
         mButton.setOnClickListener(this);
 
         apparts = new ArrayList<String>();
