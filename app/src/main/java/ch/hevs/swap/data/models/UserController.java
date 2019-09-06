@@ -1,5 +1,7 @@
 package ch.hevs.swap.data.models;
 
+import android.widget.ArrayAdapter;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -9,6 +11,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import ch.hevs.swap.ui.apartment.likedApartments;
 
 public class UserController {
     private DatabaseReference mDatabase;
@@ -29,6 +33,57 @@ public class UserController {
         mDatabase.child("users/"+ mAuth.getCurrentUser().getUid()+"/apartViewed/" + uidApp).setValue(like);
         // usercon.AddApartViewed(appartQueue.getFirst().getInfo().getValeur(),true);
     }
+
+    public  void addMessage(String uidApp) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+
+
+        mDatabase.child("users").addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String seller = "Failed";
+                        for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                            //seller = dataSnapshot.getValue(String.class);
+
+
+                        }
+
+                        System.out.println("#tttt#################################" + dataSnapshot.getValue());
+                        String key = mDatabase.child("/users/" + seller + "/notifications").push().getKey();
+                        mDatabase.child("users/" + seller + "/notifications/" + key + "/AppId").setValue(uidApp);
+                        mDatabase.child("users/" + seller + "/notifications/" + key + "/BuyerId").setValue(mAuth.getCurrentUser().getUid());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+    }
+
+    /*  public void addApartViewed(String uidApp, boolean like, String name)
+    {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        if(like)
+        {
+            mDatabase.child("users/"+ mAuth.getCurrentUser().getUid()+"/apartLiked/" + uidApp).setValue(name);
+        } else
+        {
+            mDatabase.child("users/"+ mAuth.getCurrentUser().getUid()+"/apartDislike/" + uidApp).setValue(like);
+        }
+
+        // usercon.AddApartViewed(appartQueue.getFirst().getInfo().getValeur(),true);
+    }
+    */
 
     public void apartLiked () {
 

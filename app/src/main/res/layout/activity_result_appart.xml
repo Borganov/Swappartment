@@ -14,24 +14,38 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="55dp"
         android:layout_marginBottom="78dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtAppartId"
+        app:layout_constraintBottom_toTopOf="@+id/txtAppartDesignation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/appart1" />
 
     <TextView
-        android:id="@+id/txtAppartId"
+        android:id="@+id/txtAppartDesignation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="177dp"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="176dp"
-        android:layout_marginBottom="94dp"
+        android:layout_marginBottom="198dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgAppart" />
+
+    <TextView
+        android:id="@+id/txtAppartPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="177dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="175dp"
+        android:layout_marginBottom="100dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAppartDesignation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,19 +5,20 @@ public class Info {
 
     private String valeur ;
 
+    //the info is the value of the apartment id
     public Info(String valeur)
     {
         this.valeur = valeur ;
     }
 
-    //getteur
+    //getter
 
     public String getValeur()
     {
         return valeur ;
     }
 
-    //setteur
+    //setter
 
     public void setValeur(String valeur)
     {

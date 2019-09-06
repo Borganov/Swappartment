@@ -6,7 +6,7 @@ public class Knot {
     private Info info ;
     private Knot next ;
 
-    // constructeurs
+    // constructor
     public Knot()
     {
         info = null ;
@@ -27,7 +27,7 @@ public class Knot {
         next = null ;
     }
 
-    // getteurs
+    // getters
 
     public Knot getNext()
     {
@@ -39,14 +39,13 @@ public class Knot {
         return info ;
     }
 
-    // setteurs
+    // setters
 
     public void setNext(Knot nouveau)
     {
         next = nouveau ;
     }
 
-    //utile lors d'�changes de Knots, donc d'infos
     public void setInfo(Info nouveau)
     {
         info = nouveau ;

@@ -7,7 +7,7 @@ public class Queue {
         private Knot first ;
         private Knot last ;
 
-        //constructeur
+        //constructor
         public Queue()
         {
             length = 0 ;
@@ -15,7 +15,7 @@ public class Queue {
             last = null ;
         }
 
-        // getteurs
+        // getters
         public int getLength()
         {
             return length ;
@@ -31,7 +31,7 @@ public class Queue {
             return last ;
         }
 
-        // setteurs
+        // setters
         public void setLength(int length)
         {
             this.length = length ;
@@ -47,13 +47,14 @@ public class Queue {
             this.last = last;
         }
 
-        // m�thodes
+        // methods
 
         public boolean isEmpty()
         {
             return (length == 0) ;
-        }
+        } //check if empty (no knots)
 
+        // add new knot to the queue
         public void file(Knot newKnot)
         {
             if (isEmpty())
@@ -66,6 +67,7 @@ public class Queue {
             ++length ;
         }
 
+        // print the content of the queue
         public void print() {
 
             Knot current = first;
@@ -77,6 +79,7 @@ public class Queue {
             System.out.println();
         }
 
+        // delete knot
         public Knot defile()
         {
             if (length == 0)
@@ -92,61 +95,6 @@ public class Queue {
 
             --length ;
             return debut ;
-        }
-
-        public void concat(Queue q2) {
-
-            Knot current = q2.getFirst();
-
-            while(current != null)
-            {
-                this.file(current);
-                current = current.getNext();
-            }
-
-            q2.setLength(0);
-            q2.setFirst(null);
-            q2.setLast(null);
-        }
-
-        public Knot defileElement(int n)
-        {
-            if (n<= 0 || n>length)
-                return null ;
-
-            Queue travail = new Queue() ;
-
-            for (int i=1 ; i<n ; i++)
-                travail.file(defile());
-
-            Knot retour = defile() ;
-
-            travail.concat(this);
-            concat(travail) ;
-            return retour ;
-        }
-
-        // �change de 2 Knots r�f�renc�s dans une file:
-        // on �change les r�f�rences des infos.
-        public void echange(Knot Knot1, Knot Knot2)
-        {
-            Info temp = Knot1.getInfo() ;
-            Knot1.setInfo(Knot2.getInfo());
-            Knot2.setInfo(temp);
-        }
-
-
-        public String toString()
-        {
-            String chaine = "" ;
-            Knot courant = first ;
-
-            while (courant != null)
-            {
-                chaine += courant.getInfo().toString() + " ";
-                courant = courant.getNext() ;
-            }
-            return chaine ;
         }
 
         public void fillQueue(ArrayList<String> appartKeys) {
