@@ -91,17 +91,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
 
 //            user = mAuth.getCurrentUser();
-            if(user != null ) {
-                Intent intent = new Intent(HomePage.this, SearchApart.class);
-                intent.setFlags(
-                        Intent.FLAG_ACTIVITY_NO_ANIMATION |
-                                Intent.FLAG_ACTIVITY_NO_HISTORY
-                );
-                startActivity(intent);
-            }
-            else{
-                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ NOT CONNECTED");
-            }
+
         }
     }
 
@@ -120,6 +110,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
                             user = mAuth.getCurrentUser();
                             updateUI(user);
+
+                                Intent intent = new Intent(HomePage.this, SearchApart.class);
+                                intent.setFlags(
+                                        Intent.FLAG_ACTIVITY_NO_ANIMATION |
+                                                Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(HomePage.this,"Try Again",
