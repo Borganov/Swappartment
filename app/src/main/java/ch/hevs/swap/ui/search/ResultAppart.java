@@ -29,8 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import ch.hevs.swap.R;
 import ch.hevs.swap.data.models.Appart;
@@ -40,6 +42,9 @@ import ch.hevs.swap.ui.apartment.addApartmentImages;
 import ch.hevs.swap.ui.homepage.BaseActivity;
 
 public class ResultAppart extends BaseActivity {
+
+    //Country currency
+    Locale locale = new Locale("fr", "CH");
 
     //FIREBASE VARIABLES
     FirebaseStorage storage;
@@ -168,7 +173,12 @@ public class ResultAppart extends BaseActivity {
                 if (dataSnapshot.exists()) {
                     String type;
                     txtAppartDesignation.setText("Nom : " + dataSnapshot.child("designation").getValue().toString());
-                    txtAppartPrice.setText("Prix : " + dataSnapshot.child("price").getValue().toString());
+
+                    //SOURCE OF FORMATING : https://kodejava.org/how-do-i-format-a-number-as-currency-string/
+                    NumberFormat format = NumberFormat.getCurrencyInstance(locale);
+                    String currency = format.format(Double.parseDouble(dataSnapshot.child("price").getValue().toString()));
+
+                    txtAppartPrice.setText("Prix : " + currency);
                 }
             }
 
