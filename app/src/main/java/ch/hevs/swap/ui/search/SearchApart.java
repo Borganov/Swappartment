@@ -13,10 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringDef;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,10 +43,14 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
 
     List<String> localities;
     ArrayList<String> apparts;
-
+    ArrayList<String> appartsExcluded;
     EditText mlocality;
     String locality;
     Long idLocality;
+    String idApartment;
+
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,7 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
         mButton.setOnClickListener(this);
 
         apparts = new ArrayList<String>();
+        appartsExcluded = new ArrayList<String>();
 
 
         mBtnLaunchSearch.setOnClickListener(new View.OnClickListener() {
@@ -111,29 +120,63 @@ public class SearchApart extends BaseActivity implements View.OnClickListener {
      * @param idLocality
      */
     private void ListAppart(Long idLocality) {
+
+        mAuth = FirebaseAuth.getInstance();
+        apparts.clear();
         DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference();
 
         Query query = mDataBaseRef.child("appart").orderByChild("idLocality").equalTo(idLocality);
+       // Query query = mDataBaseRef.child("appart");
 
         Toast.makeText(SearchApart.this,"Recherche en cours pour " + idLocality, Toast.LENGTH_LONG).show();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String idApartment;
-                    int i = 0;
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot apart : dataSnapshot.getChildren()) {
-                        idApartment = apart.getKey();
-                        apparts.add(idApartment);
+                        apparts.add(apart.getKey());
                     }
 
-                    Intent intent = new Intent(SearchApart.this, ResultAppart.class);
-                    intent.putStringArrayListExtra("key", apparts);
-                    startActivity(intent);
+                        Query query2 = mDataBaseRef.child("users/" + mAuth.getCurrentUser().getUid()).child("apartViewed");
+                        query2.addListenerForSingleValueEvent (new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()){
+                                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                        appartsExcluded.add(issue.child("AppId").getValue().toString());
+                                        System.out.println("appartement "+idApartment+ " pas affiché");
+                                    }
+                                }
+
+                                apparts.removeAll(appartsExcluded);
+                                if(!apparts.isEmpty()) {
+                                    Intent intent = new Intent(SearchApart.this, ResultAppart.class);
+                                    intent.putStringArrayListExtra("key", apparts);
+                                    startActivity(intent);
+                                } else
+                                {
+                                    Toast toast = Toast.makeText(SearchApart.this, getResources().getText(R.string.noAppartForLocality), Toast.LENGTH_LONG);
+                                    View root = findViewById(android.R.id.content);
+                                    int yOffset = Math.max(0, root.getHeight() - toast.getYOffset());
+                                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                    toast.show();
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
+
                 }
                 else{
-                    Toast toast = Toast.makeText(SearchApart.this,"Aucun appartement pour cette localité ", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(SearchApart.this, "getResources().getText(R.string.noAppartForLocality)", Toast.LENGTH_LONG);
                     View root = findViewById(android.R.id.content);
                     int yOffset = Math.max(0, root.getHeight() - toast.getYOffset());
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, yOffset);

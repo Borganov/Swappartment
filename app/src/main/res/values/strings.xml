@@ -42,5 +42,6 @@
     <string name="seller">"Vendeur"</string>
     <string name="notification">"Vos notifications :"</string>
     <string name="notificationB">"Notifications"</string>
+    <string name="noAppartForLocality">Aucun appartement disponible</string>
 
 </resources>
