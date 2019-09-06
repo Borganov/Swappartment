@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -76,7 +77,6 @@ public class addApartmentDetails extends BaseActivity {
         locality = findViewById(R.id.localityField);
         addButton = findViewById(R.id.addButton);
         cancelButton = findViewById(R.id.cancelButton);
-        // créer méthode cancelButton
         addButton.setOnClickListener(View -> saveChanges(
                 designation.getText().toString(),
                 Integer.parseInt(nbRooms.getText().toString()),
@@ -88,6 +88,12 @@ public class addApartmentDetails extends BaseActivity {
 
     //sauvegarde des entrées de l'utilisateur
     private void saveChanges(String designation, int nbRooms, int price, String address, String locality){
+
+        if(designation==null || Integer.toString(nbRooms)==null || Integer.toString(price)==null || address==null || locality==null){
+            Toast.makeText(addApartmentDetails.this,"Un champ est vide",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Long localityID = new Long(localities.indexOf(locality));
 
