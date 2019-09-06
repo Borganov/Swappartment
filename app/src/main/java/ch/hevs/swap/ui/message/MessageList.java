@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import ch.hevs.swap.R;
 import ch.hevs.swap.ui.homepage.BaseActivity;
 import ch.hevs.swap.ui.homepage.HomepageSeller;
+import ch.hevs.swap.ui.search.AppartDetails;
 
 public class MessageList extends BaseActivity {
 
@@ -122,9 +125,16 @@ public class MessageList extends BaseActivity {
             }
         });
 
-        //Create message by looping on data
+        messageListView.setClickable(true);
+        messageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        //Show data
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+                openDialog(position);
+
+            }
+        });
 
     }
 
@@ -177,7 +187,42 @@ public class MessageList extends BaseActivity {
         return name[0];
     }
 
+    public void openDialog(int index) {
 
+        FirebaseDatabase mDatabase;
+        DatabaseReference mDataBaseRef = FirebaseDatabase.getInstance().getReference("users/");
+        mDatabase = FirebaseDatabase.getInstance();
+
+        String idBuyer = messages.get(index).getIdBuyer();
+
+        Query queryDesignation = mDataBaseRef.child(idBuyer);
+
+        queryDesignation.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    String information = "";
+
+                    for (DataSnapshot apart : dataSnapshot.getChildren()) {
+                        information = "Nom : " + dataSnapshot.child("firstname").getValue().toString()+" " + dataSnapshot.child("name").getValue().toString() + "\n" +
+                                "E-mail : " + dataSnapshot.child("email").getValue().toString() + "\n" +
+                                "Téléphone : " + dataSnapshot.child("tel").getValue().toString();
+                    }
+
+                    //open modal appartDetails with the information of the appartment
+                    MessageDetails messageDetails = new MessageDetails(information); //parameter of AppartDetails = description of appartment
+                    messageDetails.show(getSupportFragmentManager(), "Informations acheteur");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 }
 
 
