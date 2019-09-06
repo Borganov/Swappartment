@@ -36,7 +36,7 @@ import ch.hevs.swap.ui.search.SearchApart;
 public class likedApartments extends BaseActivity implements AdapterView.OnItemClickListener {
     private ListView mListView;
     private ArrayList<String> apartLiked = new ArrayList<>();
-    HashMap<String,String> itemList = new HashMap<>();
+    ArrayList<String> apartLikedId = new ArrayList<>();
 
     private UserController userController = new UserController();
     @Override
@@ -44,7 +44,7 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liked_apartments);
         mListView = (ListView) findViewById(R.id.listView);
-        ArrayList<String> apartLikedId = new ArrayList<>();
+
         //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
         //Contenant une TextView avec comme identifiant "@android:id/text1"
 
@@ -79,7 +79,7 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
                             for(String apartId:apartLikedId)
                             {
                                 String apartementName = dataSnapshot.child(apartId).child("designation").getValue(String.class);
-                                itemList.put(apartId,apartementName);
+
                                 apartLiked.add(apartementName);
 
                             }
@@ -123,7 +123,9 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
         mAuth = FirebaseAuth.getInstance();
         ArrayList<String> users = new ArrayList<>();
         Query query = mDatabase.child("users");
-        String theapartLiked = apartLiked.get(position);
+        String theapartLiked = apartLikedId.get(position);
+
+
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -146,8 +148,8 @@ public class likedApartments extends BaseActivity implements AdapterView.OnItemC
                                     int index = 0;
                                     // dataSnapshot is the "issue" node with all children with id 0
                                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                                        rst = (String) issue.getValue();
-                                        if(((String) issue.getValue()).contains(theapartLiked) && index < 1)
+                                        rst = (String) issue.child("AppId").getValue();
+                                        if(((String) issue.child("AppId").getValue()).contains(theapartLiked) && index < 1)
                                         {
                                             index++;
                                             String key = mDatabase.child("/users/" + user + "/notifications").push().getKey();
