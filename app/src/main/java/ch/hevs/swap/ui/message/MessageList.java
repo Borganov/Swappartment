@@ -3,6 +3,7 @@ package ch.hevs.swap.ui.message;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +25,7 @@ import ch.hevs.swap.R;
 import ch.hevs.swap.ui.homepage.BaseActivity;
 import ch.hevs.swap.ui.homepage.HomepageSeller;
 import ch.hevs.swap.ui.search.AppartDetails;
+import ch.hevs.swap.ui.search.SearchApart;
 
 public class MessageList extends BaseActivity {
 
@@ -223,6 +225,10 @@ public class MessageList extends BaseActivity {
         });
 
     }
+
+    public void onBackPressed() {
+        this.startActivity(new Intent(this, HomepageSeller.class));
+    }
 }
 
 
@@ -260,5 +266,6 @@ class Message {
     public void setIdApprtment(String idApprtment) {
         this.idApprtment = idApprtment;
     }
+
 }
 
